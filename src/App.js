@@ -13,7 +13,7 @@ function App() {
       {!isLoginPage && <Navbar></Navbar>}
       <div className="app-content">
         <Switch>
-          <Route path="/login" component={props => <LoginPage {...props} setIsLoginPage={setIsLoginPage}/>}  />
+          <Route path="/home" component={props => <Navbar {...props}/>}  />
           <Route path="/" component={props => <LoginPage setIsLoginPage={setIsLoginPage}/>}  />
         </Switch>
       </div>

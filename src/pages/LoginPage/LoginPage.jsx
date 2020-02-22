@@ -26,7 +26,7 @@ class LoginPage extends React.Component {
               <div className="login-container__img-col">
                   <img className="login-container__img" src="https://www.cnb.bank/images/Computer.jpg" alt="Online banking"/>
               </div>
-              <div className="login-container__form-col">
+              <div className="login-container__form-col d-flex align-items-center">
                 <Router>
                     <Switch>
                       <Route path="/sign-up" component={props => <SingUpForm/>}  />

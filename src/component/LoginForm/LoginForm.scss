@@ -1,6 +1,11 @@
 @import '../../assets/variables';
 
 .login-form-container {
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+
     &__button {
         width: 100%;
         background-color: $primary-color !important;
