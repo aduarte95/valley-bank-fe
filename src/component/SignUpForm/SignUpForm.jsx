@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import './LoginForm.scss';
+import './SignUpForm.scss';
 import { Form, Button } from 'react-bootstrap';
 import FormHeader from '../shared/FormHeader/FormHeader';
-import { Link } from 'react-router-dom';
 
-function LoginForm() {
+function SignUpForm() {
 const [validated, setValidated] = useState(false);
 
   const handleSubmit = event => {
@@ -18,11 +17,31 @@ const [validated, setValidated] = useState(false);
   };
 
   return (   
-    <div className="login-form-container">
-      <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/sign-up"></FormHeader>
+    <div className="sign-up-form-container">
+      <FormHeader 
+        title="Open up your Bankito account now"
+        information="Already signed up?"
+        linkLegend="Log in"
+        link="/log-in"></FormHeader>
       <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
+          <Form.Group controlId="formGivenName">
+              <Form.Label>Name</Form.Label>
+              <Form.Control required type="text" placeholder="Name" />
+              <Form.Control.Feedback type="invalid">
+                Please enter your name.
+              </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group controlId="formFirstLastName">
+              <Form.Label>First Last Name</Form.Label>
+              <Form.Control required type="text" placeholder="1st Last Name" />
+              <Form.Control.Feedback type="invalid">
+                Please enter your first last name.
+              </Form.Control.Feedback>
+          </Form.Group>
+
           <Form.Group controlId="formUsername">
-              <Form.Label htmlFor="inputEmail">Username</Form.Label>
+              <Form.Label>Username</Form.Label>
               <Form.Control required type="text" placeholder="Username" />
               <Form.Control.Feedback type="invalid">
                 Please enter your username.
@@ -39,16 +58,14 @@ const [validated, setValidated] = useState(false);
 
           <Form.Group controlId="formRemenberUsername">
               <Form.Check type="checkbox" label="Remember username" />
-          </Form.Group>          
+          </Form.Group>
 
           <Button className="login-form-container__button" type="submit">
               Login
           </Button>
-
-          <Link className="login-form-container__forgot d-flex justify-content-end" to="/" >Forgot password?</Link>
       </Form>
     </div>
   );
 }
 
-export default LoginForm;
+export default SignUpForm;

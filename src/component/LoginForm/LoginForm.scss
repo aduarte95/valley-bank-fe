@@ -2,7 +2,20 @@
 
 .login-form-container {
     &__button {
+        width: 100%;
         background-color: $primary-color !important;
         border-color: $primary-color !important;
+    }
+
+    &__forgot {
+        margin: 16px 0;
+        text-decoration: underline;
+        color: $primary-color;
+    }
+}
+
+@media (max-width: 992px) {
+    .login-form-container {
+        padding: 50px 20px;
     }
 }
