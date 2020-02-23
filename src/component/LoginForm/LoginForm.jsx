@@ -9,10 +9,13 @@ import { useIsLoggedIn } from '../../hooks/useIsLoggedIn';
 
 const authenticateUrl = `http://localhost:8080/api/v1/user/authenticate`;
 
+const username = localStorage.getItem('username');
 const requestBody = {
-  username: '',
+  username: username,
   password: ''
 }
+
+var rememberMe = true;
 
 const config = {
   headers: {
@@ -39,7 +42,13 @@ function LoginForm() {
               setIsLoggedIn(true);
               setFailedLogin(false);
               sessionStorage.setItem('token', response.data.token);
-              sessionStorage.setItem('user', response.data.id)
+              sessionStorage.setItem('user', response.data.id);
+              
+              if(rememberMe) {
+                localStorage.setItem('username', response.data.username);
+              } else {
+                localStorage.removeItem('username');
+              }
             } else {
               setFailedLogin(true);
             }  
@@ -60,6 +69,13 @@ function LoginForm() {
       break;
       case 'password':
         requestBody.password = event.target.value;
+      break;
+      case 'rememberMe':
+        if(event.target.value !== "") {
+          rememberMe = true;
+        } else {
+          rememberMe = false;
+        }
       break;
       default:
         break;
@@ -88,7 +104,8 @@ function LoginForm() {
               required 
               type="text" 
               name="username" 
-              placeholder="Username" 
+              placeholder="Username"
+              defaultValue={username !== undefined ? username : "" } 
               onChange={handleChange}/>
               <Form.Control.Feedback type="invalid">
                 Please enter your username.
@@ -109,7 +126,12 @@ function LoginForm() {
           </Form.Group>
 
           <Form.Group controlId="formRemenberUsername">
-              <Form.Check type="checkbox" label="Remember username" />
+              <Form.Check 
+              type="checkbox"
+              name="rememberMe"
+              label="Remember username" 
+              onChange={handleChange}
+              checked/>
           </Form.Group>          
 
           <Button className="login-form-container__button" type="submit">

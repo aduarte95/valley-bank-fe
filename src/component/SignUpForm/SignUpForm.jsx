@@ -33,8 +33,7 @@ const [ isRegistered, setIsRegistered ] = useState(false);
       event.stopPropagation();
     } else {
       event.preventDefault();
-      console.log(requestBody)
-     /* axios.post(registerUrl, qs.stringify(requestBody))
+      axios.post(registerUrl, requestBody)
           .then(  response => {
             if(response.data === 100) {
               setIsRegistered(true);
@@ -44,7 +43,7 @@ const [ isRegistered, setIsRegistered ] = useState(false);
           })
           .catch(function (error) {
             console.log(error);
-          });*/
+          });
     }
     
     setValidated(true);
@@ -100,10 +99,7 @@ const [ isRegistered, setIsRegistered ] = useState(false);
     <div className="sign-up-form-container d-flex justify-content-center">
       {isRegistered && 
         <Redirect 
-          to={{
-            pathname: '/login',
-            state: { username: requestBody.username }
-          }}>
+          to='/login'>
           </Redirect>}
       <div className="sign-up-form-container__wrapper">
         <FormHeader 
