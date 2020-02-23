@@ -1,0 +1,14 @@
+@import '../../assets/variables';
+
+.sign-up-form-container {
+    width: 100%;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 992px) {
+    .sign-up-form-container {
+        padding: 50px 20px;
+    }
+}

@@ -22,7 +22,7 @@ const [validated, setValidated] = useState(false);
         title="Open up your Bankito account now"
         information="Already signed up?"
         linkLegend="Log in"
-        link="/log-in"></FormHeader>
+        link="/login"></FormHeader>
       <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
           <Form.Group controlId="formGivenName">
               <Form.Label>Name</Form.Label>
