@@ -6,8 +6,9 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'querystring';
 import crypto from 'crypto';
+import { FormErrors } from '../FormErrors/FormErrors';
 
-const registerUrl = `http://localhost:8080/api/v1/user/register`;
+const registerUrl = 'http://localhost:8080/api/v1/user/register';
 
 const requestBody = {
   givenName: '',
@@ -25,8 +26,21 @@ const requestBody = {
 function SignUpForm() {
 const [validated, setValidated] = useState(false);
 const [ isRegistered, setIsRegistered ] = useState(false);
+const [ errors, setErrors ] = useState( 
+  {
+    formErrors: 
+    {email: '', 
+    password: ''}, 
+    emailValid: false,
+    passwordValid: false
+  });
+
 let addMeByCellphone = React.createRef();
 
+  /**
+   *  Handles the submit form creating a new user on the server.
+   * @param {*} event 
+   */
   function handleSubmit(event) {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
@@ -50,25 +64,40 @@ let addMeByCellphone = React.createRef();
     setValidated(true);
   };
 
+  function validateField(fieldName, value) {
+    let fieldValidationErrors = errors.formErrors;
+    let emailValid = errors.emailValid;
+    let passwordValid = errors.passwordValid;
+  
+    switch(fieldName) {
+      case 'email':
+        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+        break;
+      case 'password':
+        passwordValid = value.length >= 6;
+        fieldValidationErrors.password = passwordValid ? '': ' is too short';
+        break;
+      default:
+        break;
+    }
+    setErrors({formErrors: fieldValidationErrors,
+                    emailValid: emailValid,
+                    passwordValid: passwordValid
+                  });
+  }
+
   function handleChange(event) {
     var value = event.target.value;
+    var name = event.target.name;
 
-    switch(event.target.name) {
-      case 'firstName':
-        requestBody.givenName = value;
-      break;
-      case 'lastName':
-        requestBody.lastName = value;
-      break;
+    switch(name) {
       case 'idNumber':
         if(validateNumber(value)) {
           requestBody.idNumber = value;
         } else {
           event.target.value = value.substring(0, value.length - 1);
         }
-      break;
-      case 'direction':
-        requestBody.direction = value;
       break;
       case 'telephone':
         if(validateNumber(value)) {
@@ -80,7 +109,7 @@ let addMeByCellphone = React.createRef();
       case 'cellphone':
         if(validateNumber(value)) {
           requestBody.cellphone = value;
-          
+
           if(value !== "") {
             addMeByCellphone.current.disabled = false;
           } else {
@@ -97,11 +126,16 @@ let addMeByCellphone = React.createRef();
           requestBody.canBeAddedByCellphone = false;
         }
       break;
-      case 'email':
-        requestBody.email = value.toLowerCase();
-      break;
       case 'username':
-        requestBody.username = value.toLowerCase();
+        validateField(name, value);
+
+        /*setTimeout(
+          verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', { username: value }), 
+          3000);
+        requestBody.username = value.toLowerCase();*/
+      break;
+      case 'email':
+        validateField(name, value);
       break;
       case 'password':
         var hash = crypto.createHash("sha256")
@@ -111,6 +145,7 @@ let addMeByCellphone = React.createRef();
       break;
 
       default:
+        requestBody[name] = value;
         break;
     }
   }
@@ -121,6 +156,20 @@ let addMeByCellphone = React.createRef();
     } else {
       return false;
     }
+  }
+
+  function verifyFieldsOnServer(url, field) {
+    axios.get(url)
+          .then(  response => {
+            if(response.data === 100) {
+              setIsRegistered(true);
+            } else {
+              setIsRegistered(false);
+            }  
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
   }
 
 
@@ -141,7 +190,7 @@ let addMeByCellphone = React.createRef();
                 <Form.Label>*First Name</Form.Label>
                 <Form.Control 
                 required 
-                name="firstName" 
+                name="givenName" 
                 type="text" 
                 placeholder="First Name"
                 onChange={handleChange} />
@@ -272,6 +321,10 @@ let addMeByCellphone = React.createRef();
                 Sign Up
             </Button>
         </Form>
+
+        <div className="panel panel-default">
+          <FormErrors formErrors={errors.formErrors} />
+          </div>
       </div>
     </div>
   );
