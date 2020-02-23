@@ -25,6 +25,7 @@ const requestBody = {
 function SignUpForm() {
 const [validated, setValidated] = useState(false);
 const [ isRegistered, setIsRegistered ] = useState(false);
+let addMeByCellphone = React.createRef();
 
   function handleSubmit(event) {
     const form = event.currentTarget;
@@ -79,6 +80,12 @@ const [ isRegistered, setIsRegistered ] = useState(false);
       case 'cellphone':
         if(validateNumber(value)) {
           requestBody.cellphone = value;
+          
+          if(value !== "") {
+            addMeByCellphone.current.disabled = false;
+          } else {
+            addMeByCellphone.current.disabled = true;
+          }
         } else {
           event.target.value = value.substring(0, value.length - 1);
         }
@@ -214,8 +221,10 @@ const [ isRegistered, setIsRegistered ] = useState(false);
 
             <Form.Group controlId="formCanBeAddedByCellphone">
                 <Form.Check
+                disabled
                 name="canBeAddedByCellphone"
                  type="checkbox" 
+                 ref={addMeByCellphone}
                  label="Let me be added by cellphone number" 
                  onChange={handleChange}/>
             </Form.Group>    
