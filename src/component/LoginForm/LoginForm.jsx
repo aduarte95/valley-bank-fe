@@ -10,8 +10,8 @@ import { useIsLoggedIn } from '../../hooks/useIsLoggedIn';
 const url = `http://localhost:8080/api/v1/user/authenticate`;
 
 const requestBody = {
-  username: 'alexa.duarte',
-  password: 'hola'
+  username: '',
+  password: ''
 }
 
 const config = {
@@ -21,7 +21,8 @@ const config = {
 }
 
 function LoginForm() {
-  const [validated, setValidated] = useState(false);
+  const [ validated, setValidated ] = useState(false);
+  const [ failedLogin, setFailedLogin ] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useIsLoggedIn();
 
   function handleSubmit(event) {
@@ -33,10 +34,13 @@ function LoginForm() {
       event.preventDefault();
       axios.post(url, qs.stringify(requestBody), config)
           .then(  response => {
-            if(response.data !== "101") {
+            if(response.data !== 101) {
               setIsLoggedIn(true);
+              setFailedLogin(false);
               sessionStorage.setItem('token', response.data);
-            }      
+            } else {
+              setFailedLogin(true);
+            }  
           })
           .catch(function (error) {
             console.log(error);
@@ -47,16 +51,43 @@ function LoginForm() {
     setValidated(true);
   };
 
+  function handleChange(event) {
+    switch(event.target.name) {
+      case 'username':
+        requestBody.username = event.target.value;
+      break;
+      case 'password':
+        requestBody.password = event.target.value;
+      break;
+      default:
+        break;
+    }
+  }
+
+
   
 
   return (   
     <div className="login-form-container">
       {isLoggedIn && <Redirect to="/home"></Redirect>}
       <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/sign-up"></FormHeader>
+      {failedLogin &&
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          Your username or password is incorrect. Please try again.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      }
       <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
           <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
-              <Form.Control required type="text" placeholder="Username" />
+              <Form.Control 
+              required 
+              type="text" 
+              name="username" 
+              placeholder="Username" 
+              onChange={handleChange}/>
               <Form.Control.Feedback type="invalid">
                 Please enter your username.
               </Form.Control.Feedback>
@@ -64,7 +95,12 @@ function LoginForm() {
 
           <Form.Group controlId="formPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control required type="password" placeholder="Password" />
+              <Form.Control 
+              required 
+              type="password" 
+              name="password" 
+              placeholder="Password"
+              onChange={handleChange} />
               <Form.Control.Feedback type="invalid">
                 Please enter your password.
               </Form.Control.Feedback>

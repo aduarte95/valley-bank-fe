@@ -6,6 +6,18 @@
     margin-left: auto;
     margin-right: auto;
 
+    &__wrong {
+        color: white;
+        background-color: $error-background;
+        border-radius: 2px;
+        height: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    &__paragraph {
+        margin: 0;
+    }
+
     &__button {
         width: 100%;
         background-color: $primary-color !important;
