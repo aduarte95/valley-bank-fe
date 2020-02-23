@@ -50,47 +50,69 @@ const [ isRegistered, setIsRegistered ] = useState(false);
   };
 
   function handleChange(event) {
+    var value = event.target.value;
+
     switch(event.target.name) {
       case 'firstName':
-        requestBody.givenName = event.target.value;
+        requestBody.givenName = value;
       break;
       case 'lastName':
-        requestBody.lastName = event.target.value;
+        requestBody.lastName = value;
       break;
       case 'idNumber':
-        requestBody.idNumber = event.target.value;
+        if(validateNumber(value)) {
+          requestBody.idNumber = value;
+        } else {
+          event.target.value = value.substring(0, value.length - 1);
+        }
       break;
       case 'direction':
-        requestBody.direction = event.target.value;
+        requestBody.direction = value;
       break;
       case 'telephone':
-        requestBody.telephone = event.target.value;
+        if(validateNumber(value)) {
+          requestBody.telephone = value;
+        } else {
+          event.target.value = value.substring(0, value.length - 1);
+        }
       break;
       case 'cellphone':
-        requestBody.cellphone = event.target.value;
+        if(validateNumber(value)) {
+          requestBody.cellphone = value;
+        } else {
+          event.target.value = value.substring(0, value.length - 1);
+        }
       break;
       case 'canBeAddedByCellphone':
-        if(event.target.value !== "") {
+        if(value !== "") {
           requestBody.canBeAddedByCellphone = true;
         } else {
           requestBody.canBeAddedByCellphone = false;
         }
       break;
       case 'email':
-        requestBody.email = event.target.value.toLowerCase();
+        requestBody.email = value.toLowerCase();
       break;
       case 'username':
-        requestBody.username = event.target.value.toLowerCase();
+        requestBody.username = value.toLowerCase();
       break;
       case 'password':
         var hash = crypto.createHash("sha256")
-        .update(event.target.value)
+        .update(value)
         .digest("hex");
         requestBody.password = hash;
       break;
 
       default:
         break;
+    }
+  }
+
+  function validateNumber(value) {
+    if(!isNaN(value)) {   
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -139,7 +161,9 @@ const [ isRegistered, setIsRegistered ] = useState(false);
                 <Form.Control 
                 required 
                 name="idNumber"
-                type="number" 
+                type="text" 
+                maxLength="9" 
+                pattern="\d{9}"
                 placeholder="Identity Number" 
                 onChange={handleChange}/>
                 <Form.Control.Feedback type="invalid">
@@ -164,8 +188,10 @@ const [ isRegistered, setIsRegistered ] = useState(false);
                 <Form.Label>Telephone</Form.Label>
                 <Form.Control
                 name="telephone"
-                 type="number" 
-                 placeholder="Telephone" 
+                 type="text" 
+                 placeholder="Telephone"
+                 maxLength="8" 
+                 pattern="\d{8}"
                  onChange={handleChange}/>
                 <Form.Control.Feedback type="invalid">
                   Please enter your telephone.
@@ -176,8 +202,10 @@ const [ isRegistered, setIsRegistered ] = useState(false);
                 <Form.Label>Cellphone</Form.Label>
                 <Form.Control
                 name="cellphone"
-                 type="number" 
+                 type="text" 
                  placeholder="Cellphone" 
+                 maxLength="8" 
+                 pattern="\d{8}"
                  onChange={handleChange}/>
                 <Form.Control.Feedback type="invalid">
                   Please enter your cellphone.
