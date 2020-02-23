@@ -70,7 +70,7 @@ function LoginForm() {
   return (   
     <div className="login-form-container">
       {isLoggedIn && <Redirect to="/home"></Redirect>}
-      <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/sign-up"></FormHeader>
+      <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/login/sign-up"></FormHeader>
       {failedLogin &&
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           Your username or password is incorrect. Please try again.

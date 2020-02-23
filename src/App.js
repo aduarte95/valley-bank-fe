@@ -10,7 +10,7 @@ function App() {
     <Router>
       <div className="app-content">
         <Switch>
-          <Route path="/home" component={props => <DashboardPage {...props}/>}  />
+          <Route path="/dashboard" component={props => <DashboardPage {...props}/>}  />
           <Route path="/login" component={props => <LoginPage {...props}/>}  />
         </Switch>
       </div>

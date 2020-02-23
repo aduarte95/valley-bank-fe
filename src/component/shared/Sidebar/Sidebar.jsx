@@ -7,11 +7,11 @@ function Sidebar({children}) {
   return (   
     <div className="sidebar-container">
         <div className="sidebar-container__menu d-flex flex-column justify-content-center">
-            <MenuItem link="/home">
+            <MenuItem link="/dashboard">
                 <i className="fas fa-home"></i>
                 <p className="sidebar-container__description"> Home </p>
             </MenuItem>
-            <MenuItem link="/accounts">
+            <MenuItem link="/dashboard/accounts">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                 width="22.2" height="19.5"
                 viewBox="0 0 172 172"
@@ -26,17 +26,17 @@ function Sidebar({children}) {
             <p className="sidebar-container__description"> Accounts </p>
             </MenuItem>
 
-            <MenuItem link="/transactions">
+            <MenuItem link="/dashboard/transactions">
                 <i class="fas fa-exchange-alt"></i>
                 <p className="sidebar-container__description"> Transactions </p>
             </MenuItem>
 
-            <MenuItem link="/savings">
+            <MenuItem link="/dashboard/savings">
                 <i className="fas fa-piggy-bank"></i>
                 <p className="sidebar-container__description"> Savings </p>
             </MenuItem>
 
-            <MenuItem link="/budgets">
+            <MenuItem link="/dashboard/budgets">
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                 width="20" height="20"
                 viewBox="0 0 172 172"
@@ -51,21 +51,21 @@ function Sidebar({children}) {
                 <p className="sidebar-container__description"> Budgets </p>
             </MenuItem>
 
-            <MenuItem link="/services">
+            <MenuItem link="/dashboard/services">
                 <i className="fas fa-mobile"></i>
                 <p className="sidebar-container__description"> Services </p>
             </MenuItem>
 
-            <MenuItem link="/favorites">
+            <MenuItem link="/dashboard/favorites">
                 <i className="fas fa-star"></i>
                 <p className="sidebar-container__description"> Favorites </p>
             </MenuItem>
 
-            <MenuItem link="/messages">
+            <MenuItem link="/dashboard/messages">
                 <i className="fas fa-envelope"></i>
                 <p className="sidebar-container__description"> Messages </p>
             </MenuItem>
-            <MenuItem link="/settings">
+            <MenuItem link="/dashboard/settings">
                 <i className="fas fa-cog"></i>
                 <p className="sidebar-container__description"> Settings </p>
             </MenuItem>

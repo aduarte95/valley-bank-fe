@@ -4,16 +4,18 @@ import { Route } from 'react-router-dom';
 import HomePage from '../HomePage/HomePage';
 import Navbar from '../../component/shared/Navbar/Navbar';
 import Sidebar from '../../component/shared/Sidebar/Sidebar';
+import AccountPage from '../AccountPage/AccountPage';
 
 
-function DashboardPage() {
+function DashboardPage({match}) {
     return (
             <div className="dashboard-container">
                 <Sidebar>
                     <div className="dashboard-container__wrapper">
-                        <Navbar></Navbar>
                         <div className="container-fluid">
-                            <Route path="/home" component={props => <HomePage {...props}/>}  />
+                            <Navbar></Navbar>
+                            <Route path={`${match.url}/accounts`} component={props => <AccountPage {...props}/>}  />
+                            <Route path={`${match.url}`} component={props => <HomePage {...props}/>} exact />
                         </div>
                     </div>
                 </Sidebar>

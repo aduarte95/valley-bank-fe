@@ -8,7 +8,7 @@ function FormHeader({title, information, link, linkLegend}) {
 
   return (   
       <header className="form-header-container">
-        <Title>{title}</Title>
+        <Title className="text-center">{title}</Title>
         <p className="form-header-container__info">
           {information} <Link className="form-header-container__link" to={link}>{linkLegend}</Link>
         </p>

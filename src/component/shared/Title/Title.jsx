@@ -1,10 +1,10 @@
 import React from 'react';
 import './Title.scss';
 
-function Title({children}) {
+function Title({children, className}) {
 
   return (   
-        <h1 className="title">{children}</h1>
+        <h1 className={"title " + className}>{children}</h1>
   );
 }
 
