@@ -35,18 +35,9 @@
         &__img {
             max-height: 100%;
         }
-
-        &__img-col {
-            min-height: auto;
-        }
     
         &__img-col, &__form-col {
             width: 100%;
-            height: 100%;
-        }
-
-        & {
-            max-width: 100%;
         }
     }
 }

@@ -2,9 +2,14 @@
 
 .sign-up-form-container {
     width: 100%;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
+    height: 100%;
+    padding: 1.5rem;
+    overflow: auto;
+
+    &__wrapper {
+        max-width: 500px;
+        height: fit-content;
+    }
 }
 
 @media (max-width: 992px) {
