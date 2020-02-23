@@ -7,7 +7,7 @@ import axios from 'axios';
 import qs from 'querystring';
 import { useIsLoggedIn } from '../../hooks/useIsLoggedIn';
 
-const url = `http://localhost:8080/api/v1/user/authenticate`;
+const authenticateUrl = `http://localhost:8080/api/v1/user/authenticate`;
 
 const requestBody = {
   username: '',
@@ -32,12 +32,14 @@ function LoginForm() {
       event.stopPropagation();
     } else {
       event.preventDefault();
-      axios.post(url, qs.stringify(requestBody), config)
+      axios.post(authenticateUrl, qs.stringify(requestBody), config)
           .then(  response => {
+            
             if(response.data !== 101) {
               setIsLoggedIn(true);
               setFailedLogin(false);
-              sessionStorage.setItem('token', response.data);
+              sessionStorage.setItem('token', response.data.token);
+              sessionStorage.setItem('user', response.data.id)
             } else {
               setFailedLogin(true);
             }  
@@ -69,7 +71,7 @@ function LoginForm() {
 
   return (   
     <div className="login-form-container">
-      {isLoggedIn && <Redirect to="/home"></Redirect>}
+      {isLoggedIn && <Redirect to="/dashboard"></Redirect>}
       <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/login/sign-up"></FormHeader>
       {failedLogin &&
         <div class="alert alert-danger alert-dismissible fade show" role="alert">

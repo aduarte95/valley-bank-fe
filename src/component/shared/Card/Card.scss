@@ -1,0 +1,12 @@
+@import '../../../assets/variables';
+
+.form-header-container {
+    &__info {
+        text-align: center;
+        color: $gray-color
+    }
+
+    &__link {
+        color: $primary-color;
+    }
+}
