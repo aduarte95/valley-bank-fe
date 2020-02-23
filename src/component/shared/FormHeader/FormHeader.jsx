@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FormHeader.scss';
 import Title from '../Title/Title';
 import { Link } from 'react-router-dom';

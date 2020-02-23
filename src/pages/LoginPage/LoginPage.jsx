@@ -1,11 +1,11 @@
 import React from 'react';
 import './LoginPage.scss';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import LoginForm from '../../component/LoginForm/LoginForm';
 import SingUpForm from '../../component/SignUpForm/SignUpForm';
 
 
-function LoginPage() {
+function LoginPage({match}) {
 
     return (
       <div className="login-container container-fluid">
@@ -14,12 +14,10 @@ function LoginPage() {
                   <img className="login-container__img" src="https://www.cnb.bank/images/Computer.jpg" alt="Online banking"/>
               </div>
               <div className="login-container__form-col d-flex align-items-center">
-                <Router>
-                    <Switch>
-                      <Route path="/sign-up" component={props => <SingUpForm/>}  />
-                      <Route path="/" component={props => <LoginForm/>}  />
-                    </Switch>
-                </Router>
+                <Switch>
+                    <Route path={`${match.url}/sign-up`} component={props => <SingUpForm/>}  />
+                    <Route path={`${match.url}`} component={props => <LoginForm/>} exact />
+                </Switch>
               </div>
           </div>
       </div>
