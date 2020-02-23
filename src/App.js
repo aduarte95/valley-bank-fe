@@ -3,18 +3,16 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './component/shared/Navbar/Navbar';
 import './App.scss';
-import { useIsLoginPage } from './hooks/useIsLoginPage';
+import DashboardPage from './pages/DashboardPage/DashboardPage';
 
 function App() {
-  const { isLoginPage, setIsLoginPage } = useIsLoginPage();
 
   return (
     <Router>
-      {!isLoginPage && <Navbar></Navbar>}
       <div className="app-content">
         <Switch>
-          <Route path="/home" component={props => <Navbar {...props}/>}  />
-          <Route path="/" component={props => <LoginPage setIsLoginPage={setIsLoginPage}/>}  />
+          <Route path="/home" component={props => <DashboardPage {...props}/>}  />
+          <Route path="/" component={props => <LoginPage/>}  />
         </Switch>
       </div>
     </Router>

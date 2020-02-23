@@ -1,0 +1,10 @@
+@import '../../../assets/variables';
+
+.menu-item-container {
+    color: white;
+    height: 65px;
+
+    &__description {
+        font-size: 0.8rem;
+    }
+}

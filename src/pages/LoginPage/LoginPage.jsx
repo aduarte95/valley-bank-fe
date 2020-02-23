@@ -5,21 +5,8 @@ import LoginForm from '../../component/LoginForm/LoginForm';
 import SingUpForm from '../../component/SignUpForm/SignUpForm';
 
 
-class LoginPage extends React.Component {
+function LoginPage() {
 
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount () {
-    this.props.setIsLoginPage(true)
-  }
-
-  componentWillUnmount () {
-    this.props.setIsLoginPage(false)
-  }
-
-  render(){
     return (
       <div className="login-container container-fluid">
           <div className="login-container__row d-flex flex-direction-row">
@@ -37,7 +24,6 @@ class LoginPage extends React.Component {
           </div>
       </div>
     );
-  }
 }
 
 export default LoginPage;

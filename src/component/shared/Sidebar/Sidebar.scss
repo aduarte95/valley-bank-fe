@@ -1,0 +1,56 @@
+@import '../../../assets/variables';
+
+body {
+  overflow-x: hidden;
+}
+
+/* Toggle Styles */
+
+.sidebar-container {
+  padding-left: $navbar-height;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+
+  &__description {
+      margin:0;
+  }
+  
+  &__menu {
+        z-index: 1000;
+        position: fixed;
+        left: $navbar-height;
+        width: $navbar-height;
+        height: 100%;
+        margin-left: -$navbar-height;
+        overflow-y: auto;
+        background: darkblue;
+        -webkit-transition: all 0.5s ease;
+        -moz-transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        transition: all 0.5s ease;
+        padding-top: 85px;
+    }
+
+    .nav{
+    
+    }
+
+    .nav a{
+        background: none;
+        border-bottom: 1px solid #455A64;
+        color: #CFD8DC;
+        font-size: 14px;
+        padding: 16px 24px;
+    }
+
+    .nav a:hover{
+        background: none;
+        color: #ECEFF1;
+    }
+
+    .nav a i{
+        margin-right: 16px;
+    }
+}
