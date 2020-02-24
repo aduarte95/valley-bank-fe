@@ -1,0 +1,17 @@
+@import '../../assets/variables';
+
+.account-container {
+    &__name {
+        color: $terciary-color
+    }
+
+    &__name,
+    &__title {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    &__content {
+        color: $secondary-color;
+    }
+}

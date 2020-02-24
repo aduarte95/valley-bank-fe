@@ -1,7 +1,13 @@
-.account-container {
-    padding: 16px;
+.account-page-container {
+    padding: 32px ;
 
-    &__account-card {
+    margin: 32px 0;
+
+    &__account {
         margin: 2rem 0;
+        border: 1px solid rgba(0,0,0,.125);
+        border-radius: 5px;
+        padding: 16px 32px;
+        background-color: white;
     }
 }

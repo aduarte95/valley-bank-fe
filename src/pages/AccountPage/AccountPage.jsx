@@ -4,6 +4,8 @@ import Title from '../../component/shared/Title/Title';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Card from '../../component/shared/Card/Card';
+import { Link } from 'react-router-dom';
+import Account from '../../component/Account/Account';
 
 function AccountPage() {
     const [ accounts, setAccounts ] = useState([]);
@@ -23,18 +25,18 @@ function AccountPage() {
       }, []);
           
     return (
-            <div className="account-container">
-                <header className="account-container__header d-flex justify-content-between">
+            <div className="account-page-container">
+                <header className="account-page-container__header d-flex justify-content-between">
                     <Title> My Accounts </Title>
-                    <button type="button" className="btn btn-outline-primary">Open new account</button>
+                    <Link to={'/'} className="btn btn-outline-primary">Open new account</Link>
                 </header>
                 
                 
-                    <section className="account-container__account-card d-flex">
+                    <section className="account-page-container__account d-flex flex-column justify-content-center">
                         { accounts &&
                             accounts.map( (account, i) => {
-                                return  <div key={`account-card-${i}`}>
-                                            <Card account={account} />
+                                return  <div key={`account-${i}`}>
+                                            <Account account={account} />
                                         </div>
                                 })
                         }

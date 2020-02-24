@@ -3,6 +3,7 @@
 
 html, body {
   font-family: 'Quicksand', sans-serif;
+  background-color: $body-background-color;
 }
 
 .App {
@@ -52,4 +53,11 @@ html, body {
     -moz-box-shadow:  0px 0px 5px 5px rgba(238, 92, 92, 0.3) !important;
     box-shadow: 0px 0px 1px 3px rgba(238, 92, 92, 0.3) !important;
   }
+}
+
+.btn-outline-primary {
+    color: $primary-color;
+    background-color: transparent;
+    background-image: none;
+    border-color: $primary-color;
 }
