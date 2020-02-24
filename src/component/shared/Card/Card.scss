@@ -13,7 +13,21 @@ background: linear-gradient(100deg, rgba(0,124,245,1) 0%, rgba(57,184,199,1) 100
         
         &:hover {
             text-decoration: none;
-            color: black;
+            color: white;
+            background-color: $primary-color;
+            background: $gradient;
+            font-weight: normal;
+
+            .account-card-container {
+                &__balance {
+                    color: white;
+                    font-weight: normal;
+                }
+
+                &__name {
+                    font-weight: normal;
+                }
+            }
         }
     }
 
@@ -37,7 +51,7 @@ background: linear-gradient(100deg, rgba(0,124,245,1) 0%, rgba(57,184,199,1) 100
         font-size: 1.75rem;
         margin-top: 2rem;
         margin-bottom: 0;
-        color: $contrast-color;
+        color: $secondary-color;
     }
 
     &__chevron {

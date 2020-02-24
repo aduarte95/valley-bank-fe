@@ -12,8 +12,8 @@ function DashboardPage({match}) {
             <div className="dashboard-container">
                 <Sidebar>
                     <div className="dashboard-container__wrapper">
+                        <Navbar></Navbar>
                         <div className="container-fluid">
-                            <Navbar></Navbar>
                             <Route path={`${match.url}/accounts`} component={props => <AccountPage {...props}/>}  />
                             <Route path={`${match.url}`} component={props => <HomePage {...props}/>} exact />
                         </div>

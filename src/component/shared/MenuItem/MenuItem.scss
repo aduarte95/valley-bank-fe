@@ -1,10 +1,58 @@
 @import '../../../assets/variables';
 
 .menu-item-container {
-    color: white;
+    position: relative;
+    color: $icon-color;
     height: 65px;
+    font-size: 1.5rem;
+
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 3px;
+        height: 0;
+        background-color: $primary-color;
+        transition: height .4s cubic-bezier(0.79, 0.14, 0.16, 0.86);
+    }
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+        color: $primary-color;
+
+        &::after {
+            height: 100%;
+            left: 0;
+            right: auto;
+        }
+    }
 
     &__description {
         font-size: 0.8rem;
+    }
+}
+
+.selected-link {
+    position: relative;
+
+    .menu-item-container {
+        color: $primary-color;
+    }
+
+    &::after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 3px;
+        left:0;
+        right: auto;
+        height: 100%;
+        background-color: $primary-color;
+    
     }
 }

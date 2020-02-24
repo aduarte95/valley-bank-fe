@@ -1,7 +1,10 @@
-.navbar-container {
-    height: 85px;
+@import '../../../assets/variables';
 
+.navbar-container {
+    height: $navbar-height;
+    border-bottom: $border;
+    font-size: 1.25rem;
     &__link {
-        color: #000000e6;
+        color: $icon-color;
     }
 }

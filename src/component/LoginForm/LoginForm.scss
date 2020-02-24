@@ -20,14 +20,14 @@
 
     &__button {
         width: 100%;
-        background-color: $primary-color !important;
-        border-color: $primary-color !important;
+        background-color: $primary-color;
+        background: $gradient;
     }
 
     &__forgot {
         margin: 16px 0;
         text-decoration: underline;
-        color: $primary-color;
+        color: $secondary-color;
     }
 }
 

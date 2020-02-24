@@ -1,10 +1,10 @@
 import React from 'react';
 import './MenuItem.scss';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 function MenuItem({children, link}) {
   return (   
-      <Link to={link}>
+      <NavLink activeClassName="selected-link" to={link} exact>
         <div className="menu-item-container d-flex flex-column justify-content-center align-items-center">
             <div className="menu-item-container__icon">
                 {children[0]}
@@ -13,7 +13,7 @@ function MenuItem({children, link}) {
                 {children[1]}
             </div>
         </div>
-    </Link>
+    </NavLink>
     
   );
 }

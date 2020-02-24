@@ -15,6 +15,7 @@ body {
 
   &__description {
       margin:0;
+      display: none;
   }
   
   &__menu {
@@ -25,17 +26,11 @@ body {
         height: 100%;
         margin-left: -$navbar-height;
         overflow-y: auto;
-        background-color: $primary-color;
-       /* background: rgb(57,184,199);
-background: linear-gradient(0deg, rgba(57,184,199,1) 0%, rgba(0,124,245,1) 26%);*/
+        border-right: $border;
         -webkit-transition: all 0.5s ease;
         -moz-transition: all 0.5s ease;
         -o-transition: all 0.5s ease;
         transition: all 0.5s ease;
-    }
-
-    .nav{
-    
     }
 
     .nav a{

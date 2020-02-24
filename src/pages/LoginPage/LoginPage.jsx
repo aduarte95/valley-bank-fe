@@ -11,7 +11,7 @@ function LoginPage({match}) {
       <div className="login-container container-fluid">
           <div className="login-container__row d-flex flex-direction-row">
               <div className="login-container__img-col">
-                  <img className="login-container__img" src="https://www.cnb.bank/images/Computer.jpg" alt="Online banking"/>
+                  <img className="login-container__img" src="https://haiper-react.envytheme.com/_next/static/images/1-afd4e1ecfec2dd23a0e8e4678f8a0f43.jpg" alt="Online banking"/>
               </div>
               <div className="login-container__form-col d-flex align-items-center">
                 <Switch>

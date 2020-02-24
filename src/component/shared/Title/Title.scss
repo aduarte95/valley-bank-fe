@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+@import '../../../assets/variables';
 
 .title {
-    font-family: 'Raleway', sans-serif;
-    font-size: 1.75rem;
+    font-size: 1.1rem;
+    color: $primary-color;
     font-weight: bolder;
+    text-transform: uppercase;
 }

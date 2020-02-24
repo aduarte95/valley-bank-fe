@@ -1,6 +1,10 @@
-$primary-color: #2C75F2 ;
+$primary-color: #AA3150;
+$secondary-color: #971cbb;
 $gray-color: #57647c;
+$icon-color: #BCC1D4;
+$border: solid 0.5px #7d7d7db3;
 $error-background: #ff8b8b;
 $error-border: #dc3545;
-$navbar-height: 85px;
-$contrast-color: #36006d;
+$navbar-height: 65px;
+$contrast-color: #AA3150;
+$gradient: linear-gradient(90deg, $primary-color 0%,  $secondary-color 100%);
