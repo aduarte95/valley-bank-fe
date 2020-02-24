@@ -47,33 +47,26 @@ let addMeByCellphone = React.createRef();
     const form = event.currentTarget;
     event.preventDefault();
     event.persist();
-    console.log(requestBody)
-    verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', requestBody.username)
-        .then(exists => {
-          console.log(exists)
-          let fieldValid =  !exists;
-          errors.formErrors.username = fieldValid ? ' ' : 'is invalid';
-          setErrors( oldObject => ({...oldObject, usernameValid: fieldValid}));
-        
-          if (form.checkValidity() === false && exists) {
-            
-            event.stopPropagation();
-          } else {
-            axios.post(registerUrl, requestBody)
-                .then(  response => {
-                  if(response.data === 100) {
-                    setIsRegistered(true);
-                  } else {
-                    setIsRegistered(false);
-                  }  
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-          }
-          
-          setValidated(true);
-        });
+
+    validateField('username', requestBody.username);
+
+    if (form.checkValidity() === false && errors.usernameValid ) {   
+      event.stopPropagation();
+    } else {
+      axios.post(registerUrl, requestBody)
+          .then(  response => {
+            if(response.data === 100) {
+              setIsRegistered(true);
+            } else {
+              setIsRegistered(false);
+            }  
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    }
+    
+    setValidated(true);
   };
 
   function validateField(fieldName, value) {
@@ -81,20 +74,27 @@ let addMeByCellphone = React.createRef();
     let fieldValid = errors[fieldName +  "Valid"];
   
     switch(fieldName) {
-      case 'email':
-        fieldValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors[fieldName] = fieldValid ? '' : ' is invalid';
-        break;
       case 'password':
         fieldValid = value.length >= 6;
         fieldValidationErrors[fieldName] = fieldValid ? '': ' is too short';
         break;
+      case 'username': 
+        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', value)
+          .then(exists => {
+            fieldValid = !exists;
+            fieldValidationErrors[fieldName] = fieldValid ? '' : ' already exists';
+            setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+              [fieldValid]: fieldValid
+            }));
+          });
+        break;
       default:
         break;
     }
-    setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
-                    [fieldValid]: fieldValid
-                  }));
+    setErrors(oldObject => ({...oldObject, 
+                                formErrors: fieldValidationErrors,
+                                [fieldValid]: fieldValid
+              }));
   }
 
   function handleChange(event) {
@@ -138,15 +138,6 @@ let addMeByCellphone = React.createRef();
       break;
       case 'username':
         requestBody.username = value.toLowerCase();
-        validateField(name, value);
-
-        /*setTimeout(
-          verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', { username: value }), 
-          3000);
-        requestBody.username = value.toLowerCase();*/
-      break;
-      case 'email':
-        validateField(name, value);
       break;
       case 'password':
         var hash = crypto.createHash("sha256")
@@ -172,7 +163,6 @@ let addMeByCellphone = React.createRef();
   function verifyFieldsOnServer(url, field) {
     return axios.get(url, {params: {username: field}})
           .then(  response => {
-            console.log('res' + field)
             return response.data 
           })
           .catch(function (error) {
@@ -307,9 +297,9 @@ let addMeByCellphone = React.createRef();
                 type="text" 
                 placeholder="Username" 
                 onChange={handleChange}/>
-                <Form.Control.Feedback type="invalid">
-                  Please enter your username.
-                </Form.Control.Feedback>
+                <div className="panel panel-default">
+                  <FormErrors formErrors={errors.formErrors} />
+                </div>
             </Form.Group>
 
             <Form.Group controlId="formPassword">
@@ -330,9 +320,7 @@ let addMeByCellphone = React.createRef();
             </Button>
         </Form>
 
-        <div className="panel panel-default">
-          <FormErrors formErrors={errors.formErrors} />
-          </div>
+        
       </div>
     </div>
   );
