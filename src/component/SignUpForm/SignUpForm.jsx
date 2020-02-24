@@ -16,7 +16,7 @@ const requestBody = {
   direction: '',
   idNumber: '',
   telephone: '',
-  cellphone: '',
+  cellphone: null,
   canBeAddedByCellphone: false,
   email: '',
   username: '',
@@ -31,10 +31,14 @@ const [ errors, setErrors ] = useState(
     formErrors: 
     {email: '', 
     password: '',
-    username: ''}, 
+    username: '',
+    idNumber: '',
+    cellphone: ''}, 
     emailValid: false,
     passwordValid: false,
-    usernameValid: false
+    usernameValid: false,
+    idNumberValid: false,
+    cellphoneValid: false
   });
 
 let addMeByCellphone = React.createRef();
@@ -46,11 +50,16 @@ let addMeByCellphone = React.createRef();
   function handleSubmit(event) {
     const form = event.currentTarget;
     event.preventDefault();
-    event.persist();
 
-    if (form.checkValidity() === false) {   
+    if (allValidated() === false) {
       event.stopPropagation();
+      console.log('notValidated');
     } else {
+      if(form.checkValidity() === false) {   
+        event.stopPropagation();
+      } else {
+        console.log('jiji');
+
       axios.post(registerUrl, requestBody)
           .then(  response => {
             if(response.data === 100) {
@@ -62,10 +71,29 @@ let addMeByCellphone = React.createRef();
           .catch(function (error) {
             console.log(error);
           });
+      }
     }
     
     setValidated(true);
   };
+
+  function allValidated(){
+    var allAreValidated = true;
+
+    for (var key in errors) {
+      if (errors.hasOwnProperty(key)) {
+        if(errors[key] !== 'formErrors') {
+          if(errors[key] === false) {
+            allAreValidated = false;
+            break;
+          }
+          
+        }
+      }
+    }
+
+    return allAreValidated;
+  }
 
   function validateField(fieldName, value) {
     let fieldValidationErrors = errors.formErrors;
@@ -85,26 +113,64 @@ let addMeByCellphone = React.createRef();
             </ul>
           </span>
         </Fragment>)
-        
+        setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+          [fieldName + 'Valid']: fieldValid
+        }));
         break;
+
       case 'username': 
-        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', value)
+        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', {username: value})
           .then(exists => {
             fieldValid = !exists;
-            console.log(fieldName)
             fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';
             setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
-              [fieldValid]: fieldValid
+              [fieldName + 'Valid']: fieldValid
             }));
           });
         break;
+      
+      case 'idNumber':
+        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-id-number', {idNumber: value})
+          .then(exists => {
+            fieldValid = !exists;
+            fieldValidationErrors[fieldName] = fieldValid ? '' : 'Identification number already exists';
+            setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+              [fieldName + 'Valid']: fieldValid
+            }));
+          });
+      break;
+
+      case 'email':
+        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-email', {email: value})
+          .then(exists => {
+            fieldValid = !exists;
+            fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';
+            setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+              [fieldName + 'Valid']: fieldValid
+            }));
+          });
+      break;
+
+      case 'cellphone':
+        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-cellphone', {cellphone: value})
+          .then(exists => {
+            fieldValid = !exists;
+            fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';
+            setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+              [fieldName + 'Valid']: fieldValid
+            }));
+          });
+      break;
+
+      /*case:
+      break;
+
+      case:
+      break;*/
+
       default:
         break;
     }
-    setErrors(oldObject => ({...oldObject, 
-                                formErrors: fieldValidationErrors,
-                                [fieldValid]: fieldValid
-              }));
   }
 
   function checkPassword(str)
@@ -121,6 +187,7 @@ let addMeByCellphone = React.createRef();
       case 'idNumber':
         if(validateNumber(value)) {
           requestBody.idNumber = value;
+          validateField(name, value);
         } else {
           event.target.value = value.substring(0, value.length - 1);
         }
@@ -136,7 +203,7 @@ let addMeByCellphone = React.createRef();
         if(validateNumber(value)) {
           requestBody.cellphone = value;
 
-          if(value !== "") {
+          if(value !== "" && validateField(name, value)) {
             addMeByCellphone.current.disabled = false;
           } else {
             addMeByCellphone.current.disabled = true;
@@ -164,6 +231,9 @@ let addMeByCellphone = React.createRef();
 
           requestBody[name] = hash;
         }
+      case 'email': 
+        requestBody[name] = value.toLowerCase();
+        validateField(name, value);
       break;
 
       default:
@@ -181,7 +251,7 @@ let addMeByCellphone = React.createRef();
   }
 
   function verifyFieldsOnServer(url, field) {
-    return axios.get(url, {params: {username: field}})
+    return axios.get(url, {params: field})
           .then(  response => {
             return response.data 
           })
@@ -239,10 +309,14 @@ let addMeByCellphone = React.createRef();
                 maxLength="9" 
                 pattern="\d{9}"
                 placeholder="Identity Number" 
-                onChange={handleChange}/>
+                onChange={handleChange}
+                className={`${errorClass(errors.formErrors.idNumber)}`}/>
                 <Form.Control.Feedback type="invalid">
                   Please enter your identity number.
                 </Form.Control.Feedback>
+                <div className="panel panel-default">
+                  <FormErrors formError={errors.formErrors.idNumber} />
+                </div>
             </Form.Group>
 
             <Form.Group controlId="formDirection">
@@ -280,10 +354,14 @@ let addMeByCellphone = React.createRef();
                  placeholder="Cellphone" 
                  maxLength="8" 
                  pattern="\d{8}"
-                 onChange={handleChange}/>
+                 onChange={handleChange}
+                 className={`${errorClass(errors.formErrors.cellphone)}`}/>
                 <Form.Control.Feedback type="invalid">
                   Please enter your cellphone.
                 </Form.Control.Feedback>
+                <div className="panel panel-default">
+                  <FormErrors formError={errors.formErrors.cellphone} />
+                </div>
             </Form.Group>
 
             <Form.Group controlId="formCanBeAddedByCellphone">
@@ -303,10 +381,14 @@ let addMeByCellphone = React.createRef();
                 name="email"
                 type="email" 
                 placeholder="Email" 
-                onChange={handleChange}/>
+                onChange={handleChange}
+                className={`${errorClass(errors.formErrors.email)}`}/>
                 <Form.Control.Feedback type="invalid">
                   Please enter your email.
                 </Form.Control.Feedback>
+                <div className="panel panel-default">
+                  <FormErrors formError={errors.formErrors.email} />
+                </div>
             </Form.Group>
 
             <Form.Group controlId="formUsername">
@@ -355,7 +437,6 @@ let addMeByCellphone = React.createRef();
 }
 
 function errorClass(error) {
-  console.log('hola')
   return(error.length === 0 ? '' : 'has-error');
 }
 
