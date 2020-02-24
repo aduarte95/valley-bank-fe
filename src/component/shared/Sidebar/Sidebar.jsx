@@ -27,7 +27,7 @@ function Sidebar({children}) {
             </MenuItem>
 
             <MenuItem link="/dashboard/transactions">
-                <i class="fas fa-exchange-alt"></i>
+                <i className="fas fa-exchange-alt"></i>
                 <p className="sidebar-container__description"> Transactions </p>
             </MenuItem>
 
@@ -61,14 +61,14 @@ function Sidebar({children}) {
                 <p className="sidebar-container__description"> Favorites </p>
             </MenuItem>
 
-            <MenuItem link="/dashboard/messages">
+            {/* <MenuItem link="/dashboard/messages">
                 <i className="fas fa-envelope"></i>
                 <p className="sidebar-container__description"> Messages </p>
             </MenuItem>
             <MenuItem link="/dashboard/settings">
                 <i className="fas fa-cog"></i>
                 <p className="sidebar-container__description"> Settings </p>
-            </MenuItem>
+            </MenuItem> */}
         </div>
   
         {children}

@@ -92,7 +92,7 @@ function LoginForm() {
       {isLoggedIn && <Redirect to="/dashboard"></Redirect>}
       <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/login/sign-up"></FormHeader>
       {failedLogin &&
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
           Your username or password is incorrect. Please try again.
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

@@ -1,12 +1,55 @@
 @import '../../../assets/variables';
 
-.form-header-container {
-    &__info {
-        text-align: center;
-        color: $gray-color
+.account-card-container {
+    width: 250px;
+    margin-right: 4rem;
+    transition: box-shadow .3s;
+    
+
+    &__body {
+        color:  black;
+        /*background: rgb(0,124,245);
+background: linear-gradient(100deg, rgba(0,124,245,1) 0%, rgba(57,184,199,1) 100%);*/
+        
+        &:hover {
+            text-decoration: none;
+            color: black;
+        }
     }
 
-    &__link {
-        color: $primary-color;
+    &:hover {
+        box-shadow: 0 0 11px rgba(0, 0, 0, 0.2); 
+    }
+
+    &__name {
+        text-transform: capitalize;
+        font-size: 1.25rem;
+        font-weight: bolder;
+        margin-bottom: .3rem;
+
+    }
+
+    &__number {
+        font-size: 1rem;
+    }
+
+    &__balance {
+        font-size: 1.75rem;
+        margin-top: 2rem;
+        margin-bottom: 0;
+        color: $contrast-color;
+    }
+
+    &__chevron {
+        padding: 0px;
+    }
+
+    &__footer {
+        padding: 0rem 0.5rem;
+    }
+
+    &__option {
+        padding: 0.5rem 1.25rem;
+        border-top: 1px solid rgba(0,0,0,.125);
     }
 }

@@ -4,7 +4,6 @@ import { Form, Button } from 'react-bootstrap';
 import FormHeader from '../shared/FormHeader/FormHeader';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import qs from 'querystring';
 import crypto from 'crypto';
 import { FormErrors } from '../FormErrors/FormErrors';
 
@@ -222,6 +221,7 @@ let addMeByCellphone = React.createRef();
 
           requestBody[name] = hash;
         }
+        break;
       case 'email': 
         requestBody[name] = value.toLowerCase();
         validateField(name, value);
