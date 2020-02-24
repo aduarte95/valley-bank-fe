@@ -53,13 +53,10 @@ let addMeByCellphone = React.createRef();
 
     if (allValidated() === false) {
       event.stopPropagation();
-      console.log('notValidated');
     } else {
       if(form.checkValidity() === false) {   
         event.stopPropagation();
       } else {
-        console.log('jiji');
-
       axios.post(registerUrl, requestBody)
           .then(  response => {
             if(response.data === 100) {
@@ -161,12 +158,6 @@ let addMeByCellphone = React.createRef();
             }));
           });
       break;
-
-      /*case:
-      break;
-
-      case:
-      break;*/
 
       default:
         break;

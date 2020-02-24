@@ -82,7 +82,9 @@ function LoginForm() {
     }
   }
 
-
+  function errorClass() {
+    return(failedLogin ? 'has-error' : '');
+  }
   
 
   return (   
@@ -106,7 +108,8 @@ function LoginForm() {
               name="username" 
               placeholder="Username"
               defaultValue={username !== undefined ? username : "" } 
-              onChange={handleChange}/>
+              onChange={handleChange}
+              className={`${errorClass()}`}/>
               <Form.Control.Feedback type="invalid">
                 Please enter your username.
               </Form.Control.Feedback>
@@ -119,7 +122,8 @@ function LoginForm() {
               type="password" 
               name="password" 
               placeholder="Password"
-              onChange={handleChange} />
+              onChange={handleChange}
+              className={`${errorClass()}`} />
               <Form.Control.Feedback type="invalid">
                 Please enter your password.
               </Form.Control.Feedback>
