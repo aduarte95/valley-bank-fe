@@ -41,3 +41,11 @@ html, body {
   }
 }
 
+.has-error {
+  border-color: red !important;
+
+  &:focus {
+    box-shadow: 0 0 5px rgb(238, 81, 81);
+    border: 1px solid rgb(238, 81, 81);
+  }
+}

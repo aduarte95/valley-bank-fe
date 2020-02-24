@@ -48,9 +48,7 @@ let addMeByCellphone = React.createRef();
     event.preventDefault();
     event.persist();
 
-    validateField('username', requestBody.username);
-
-    if (form.checkValidity() === false && errors.usernameValid ) {   
+    if (form.checkValidity() === false) {   
       event.stopPropagation();
     } else {
       axios.post(registerUrl, requestBody)
@@ -138,6 +136,7 @@ let addMeByCellphone = React.createRef();
       break;
       case 'username':
         requestBody.username = value.toLowerCase();
+        validateField('username', value);
       break;
       case 'password':
         var hash = crypto.createHash("sha256")
@@ -296,7 +295,8 @@ let addMeByCellphone = React.createRef();
                 name="username"
                 type="text" 
                 placeholder="Username" 
-                onChange={handleChange}/>
+                onChange={handleChange}
+                className={`${errorClass(errors.formErrors.username)}`} />
                 <div className="panel panel-default">
                   <FormErrors formErrors={errors.formErrors} />
                 </div>
@@ -324,6 +324,11 @@ let addMeByCellphone = React.createRef();
       </div>
     </div>
   );
+}
+
+function errorClass(error) {
+  console.log('hola')
+  return(error.length === 0 ? '' : 'has-error');
 }
 
 export default SignUpForm;
