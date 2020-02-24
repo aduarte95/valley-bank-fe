@@ -1,38 +1,6 @@
-@import '../../assets/variables';
+.form-errors-container {
 
-.login-form-container {
-    width: 100%;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-
-    &__wrong {
-        color: white;
-        background-color: $error-background;
-        border-radius: 2px;
-        height: 3rem;
-        margin-bottom: 1rem;
-    }
-
-    &__paragraph {
-        margin: 0;
-    }
-
-    &__button {
-        width: 100%;
-        background-color: $primary-color !important;
-        border-color: $primary-color !important;
-    }
-
-    &__forgot {
-        margin: 16px 0;
-        text-decoration: underline;
-        color: $primary-color;
-    }
-}
-
-@media (max-width: 992px) {
-    .login-form-container {
-        padding: 50px 20px;
+    &:first-letter{
+        text-transform: capitalize;
     }
 }

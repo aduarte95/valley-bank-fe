@@ -1,15 +1,8 @@
 // From https://learnetto.com/blog/react-form-validation
 import React from 'react';
+import './FormErrors.scss';
 
-export const FormErrors = ({formErrors}) =>
-  <div className='formErrors'>
-    {Object.keys(formErrors).map((fieldName, i) => {
-      if(formErrors[fieldName].length > 0){
-        return (
-          <p key={i}>{fieldName} {formErrors[fieldName]}</p>
-        )        
-      } else {
-        return '';
-      }
-    })}
+export const FormErrors = ({formError}) =>
+  <div className='form-errors-container'>
+    <p> {formError} </p>
   </div>

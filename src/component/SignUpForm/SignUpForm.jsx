@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import './SignUpForm.scss';
 import { Form, Button } from 'react-bootstrap';
 import FormHeader from '../shared/FormHeader/FormHeader';
@@ -73,14 +73,26 @@ let addMeByCellphone = React.createRef();
   
     switch(fieldName) {
       case 'password':
-        fieldValid = value.length >= 6;
-        fieldValidationErrors[fieldName] = fieldValid ? '': ' is too short';
+        fieldValid = checkPassword(value);
+        fieldValidationErrors[fieldName] = fieldValid ? '': 
+        (<Fragment>
+          <span> {fieldName} invalid. It must contain: <br/>
+            <ul>
+              <li>Six or more characters long</li>
+              <li>At least one digit</li>
+              <li>At least one lowercase character </li>
+              <li>At least one uppercase character </li>
+            </ul>
+          </span>
+        </Fragment>)
+        
         break;
       case 'username': 
         verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', value)
           .then(exists => {
             fieldValid = !exists;
-            fieldValidationErrors[fieldName] = fieldValid ? '' : ' already exists';
+            console.log(fieldName)
+            fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';
             setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
               [fieldValid]: fieldValid
             }));
@@ -93,6 +105,12 @@ let addMeByCellphone = React.createRef();
                                 formErrors: fieldValidationErrors,
                                 [fieldValid]: fieldValid
               }));
+  }
+
+  function checkPassword(str)
+  {
+    var re = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+    return re.test(str);
   }
 
   function handleChange(event) {
@@ -135,14 +153,17 @@ let addMeByCellphone = React.createRef();
         }
       break;
       case 'username':
-        requestBody.username = value.toLowerCase();
-        validateField('username', value);
+        requestBody[name] = value.toLowerCase();
+        validateField(name, value);
       break;
       case 'password':
-        var hash = crypto.createHash("sha256")
-        .update(value)
-        .digest("hex");
-        requestBody.password = hash;
+        if(validateField(name, value)) {
+          var hash = crypto.createHash("sha256")
+          .update(value)
+          .digest("hex");
+
+          requestBody[name] = hash;
+        }
       break;
 
       default:
@@ -297,8 +318,11 @@ let addMeByCellphone = React.createRef();
                 placeholder="Username" 
                 onChange={handleChange}
                 className={`${errorClass(errors.formErrors.username)}`} />
+                <Form.Control.Feedback type="invalid">
+                  Please enter your username.
+                </Form.Control.Feedback>
                 <div className="panel panel-default">
-                  <FormErrors formErrors={errors.formErrors} />
+                  <FormErrors formError={errors.formErrors.username} />
                 </div>
             </Form.Group>
 
@@ -309,10 +333,14 @@ let addMeByCellphone = React.createRef();
                 name="password"
                 type="password" 
                 placeholder="Password" 
-                onChange={handleChange}/>
+                onChange={handleChange}
+                className={`${errorClass(errors.formErrors.password)}`}/>
                 <Form.Control.Feedback type="invalid">
                   Please enter your password.
                 </Form.Control.Feedback>
+                <div className="panel panel-default">
+                  <FormErrors formError={errors.formErrors.password} />
+                </div>
             </Form.Group>
 
             <Button className="login-form-container__button" type="submit">
