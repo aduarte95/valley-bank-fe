@@ -30,9 +30,11 @@ const [ errors, setErrors ] = useState(
   {
     formErrors: 
     {email: '', 
-    password: ''}, 
+    password: '',
+    username: ''}, 
     emailValid: false,
-    passwordValid: false
+    passwordValid: false,
+    usernameValid: false
   });
 
 let addMeByCellphone = React.createRef();
@@ -43,48 +45,56 @@ let addMeByCellphone = React.createRef();
    */
   function handleSubmit(event) {
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      event.preventDefault();
-      axios.post(registerUrl, requestBody)
-          .then(  response => {
-            if(response.data === 100) {
-              setIsRegistered(true);
-            } else {
-              setIsRegistered(false);
-            }  
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-    }
-    
-    setValidated(true);
+    event.preventDefault();
+    event.persist();
+    console.log(requestBody)
+    verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', requestBody.username)
+        .then(exists => {
+          console.log(exists)
+          let fieldValid =  !exists;
+          errors.formErrors.username = fieldValid ? ' ' : 'is invalid';
+          setErrors( oldObject => ({...oldObject, usernameValid: fieldValid}));
+        
+          if (form.checkValidity() === false && exists) {
+            
+            event.stopPropagation();
+          } else {
+            axios.post(registerUrl, requestBody)
+                .then(  response => {
+                  if(response.data === 100) {
+                    setIsRegistered(true);
+                  } else {
+                    setIsRegistered(false);
+                  }  
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+          }
+          
+          setValidated(true);
+        });
   };
 
   function validateField(fieldName, value) {
     let fieldValidationErrors = errors.formErrors;
-    let emailValid = errors.emailValid;
-    let passwordValid = errors.passwordValid;
+    let fieldValid = errors[fieldName +  "Valid"];
   
     switch(fieldName) {
       case 'email':
-        emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
-        fieldValidationErrors.email = emailValid ? '' : ' is invalid';
+        fieldValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
+        fieldValidationErrors[fieldName] = fieldValid ? '' : ' is invalid';
         break;
       case 'password':
-        passwordValid = value.length >= 6;
-        fieldValidationErrors.password = passwordValid ? '': ' is too short';
+        fieldValid = value.length >= 6;
+        fieldValidationErrors[fieldName] = fieldValid ? '': ' is too short';
         break;
       default:
         break;
     }
-    setErrors({formErrors: fieldValidationErrors,
-                    emailValid: emailValid,
-                    passwordValid: passwordValid
-                  });
+    setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+                    [fieldValid]: fieldValid
+                  }));
   }
 
   function handleChange(event) {
@@ -127,6 +137,7 @@ let addMeByCellphone = React.createRef();
         }
       break;
       case 'username':
+        requestBody.username = value.toLowerCase();
         validateField(name, value);
 
         /*setTimeout(
@@ -159,13 +170,10 @@ let addMeByCellphone = React.createRef();
   }
 
   function verifyFieldsOnServer(url, field) {
-    axios.get(url)
+    return axios.get(url, {params: {username: field}})
           .then(  response => {
-            if(response.data === 100) {
-              setIsRegistered(true);
-            } else {
-              setIsRegistered(false);
-            }  
+            console.log('res' + field)
+            return response.data 
           })
           .catch(function (error) {
             console.log(error);
