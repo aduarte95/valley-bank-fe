@@ -2,6 +2,8 @@ import React from 'react';
 import './Sidebar.scss';
 import MenuItem from '../MenuItem/MenuItem';
 
+
+
 function Sidebar({children}) {
 
   return (   

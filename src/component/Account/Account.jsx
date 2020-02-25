@@ -28,6 +28,24 @@ function Account({account}) {
               {currency + account.balance}
             </p>
           </div>
+
+          <div className="account-container__info col"> 
+            <h3 className="account-container__title">
+              Acctions
+            </h3> 
+            <p className="account-container__content">
+              <div className="d-flex ">
+                <Link className="account-container__link d-flex no-wrap" to="/">
+                  <i class="account-container__action-icon d-flex align-items-center las la-history"/> 
+                  See transactions
+                </Link>
+              </div>
+            </p>
+          </div>
+
+          
+
+          
     </div>
   );
 }

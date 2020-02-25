@@ -21,7 +21,56 @@
     &__button {
         width: 100%;
         background-color: $primary-color;
-        background: $gradient;
+        border-color: $primary-color;
+        text-align: center;
+        display: inline-block;
+        position: relative;
+        text-decoration: none;
+        color: white;
+        text-transform: capitalize;
+
+        &:hover {
+            background-color: $primary-color;
+            border-color: $primary-color;
+        }
+
+        &--icon-effect {
+            transition: all 0.2s linear 0s;
+            
+            &:before {
+                content: "\f2f6";
+                font-family: Line Awesome Free;
+                font-weight: 900;
+                -webkit-font-smoothing: antialiased;
+                display: inline-block;
+                font-style: normal;
+                font-feature-settings: normal;
+                font-variant: normal;
+                text-rendering: auto;
+                line-height: 1;
+                font-size: 1.1rem;
+                position: absolute;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                right: 0;
+                top: 0;
+                opacity: 0;
+                height: 100%;
+                width: 90%;
+                transition: all 0.2s linear 0s;
+                margin-top: 1px;
+            }
+            
+            &:hover {
+              text-indent: -20px;
+              
+              &:before {
+                opacity: 1;
+                text-indent: 0px;
+              }
+            }
+        }
     }
 
     &__forgot {
