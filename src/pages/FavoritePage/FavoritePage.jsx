@@ -25,7 +25,7 @@ function FavoritePage() {
     <div className="favorite-page-container">
         <header className="favorite-page-container__header d-flex justify-content-between">
             <Title> Favorites </Title>
-            <Link to={'/favorite/add-favorite'} className="btn btn-outline-primary">Add favorite</Link>
+            <Link to={'add-favorite'} className="btn btn-outline-primary">Add favorite</Link>
         </header>
 
         <form className="form-inline">

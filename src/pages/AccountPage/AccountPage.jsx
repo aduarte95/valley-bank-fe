@@ -27,7 +27,7 @@ function AccountPage() {
             <div className="account-page-container">
                 <header className="account-page-container__header d-flex justify-content-between">
                     <Title> My Accounts </Title>
-                    <Link to={'/'} className="btn btn-outline-primary">Open new account</Link>
+                    <Link to={'new-account'} className="btn btn-outline-primary">Open new account</Link>
                 </header>
                 
                 <section className="section-border d-flex flex-column justify-content-center">

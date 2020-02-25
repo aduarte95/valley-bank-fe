@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Favorites.scss';
-import { Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 import FavoriteCard from '../FavoriteCard/FavoriteCard';
 
 function Favorites({ favorites}) {

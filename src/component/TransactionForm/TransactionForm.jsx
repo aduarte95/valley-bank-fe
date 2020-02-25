@@ -1,10 +1,8 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState } from 'react';
 import './TransactionForm.scss';
 import { Form, Button } from 'react-bootstrap';
-import FormHeader from '../shared/FormHeader/FormHeader';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import crypto from 'crypto';
 
 const createTransaction = 'http://localhost:8080/api/v1/transaction';
 
@@ -143,7 +141,7 @@ function TransactionForm({accounts, favorites}) {
                   })
                 }
               </Form.Control>
-              <Link to={'accounts/add-account'} className="btn btn-outline-primary">Open new account</Link>
+              <Link to={'new-account'} className="btn btn-outline-primary">Open new account</Link>
             </Form.Group>
 
             <Form.Group controlId="destinyAccountSelect">
@@ -162,7 +160,7 @@ function TransactionForm({accounts, favorites}) {
               <Form.Control.Feedback type="invalid">
                 You must create a favorite account to select it here.
               </Form.Control.Feedback>
-              <Link to={'favorites/add-favorite'} className="btn btn-outline-primary">Add favorite</Link>
+              <Link to={'add-favorite'} className="btn btn-outline-primary">Add favorite</Link>
             </Form.Group>
 
             <Form.Group controlId="formAmount">
@@ -183,7 +181,9 @@ function TransactionForm({accounts, favorites}) {
               <Form.Label>Description</Form.Label>
               <Form.Control 
               type="text"
-              maxLength="30"/>
+              maxLength="30"
+              name="description"
+              onChange={handleChange}/>
             </Form.Group>
 
             <Button className="login-form-container__button" type="submit">

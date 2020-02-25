@@ -17,7 +17,7 @@ function Saving({account}) {
       .catch(function (error) {
         console.log(error);
       });
-  }, []);
+  }, [account]);
   console.log(savings)
   return ( 
     <div className="saving-container">
