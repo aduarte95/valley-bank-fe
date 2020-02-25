@@ -3,7 +3,6 @@ import './AccountPage.scss';
 import Title from '../../component/shared/Title/Title';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import Card from '../../component/shared/Card/Card';
 import { Link } from 'react-router-dom';
 import Account from '../../component/Account/Account';
 
@@ -32,7 +31,7 @@ function AccountPage() {
                 </header>
                 
                 
-                    <section className="account-page-container__account d-flex flex-column justify-content-center">
+                    <section className="section-border d-flex flex-column justify-content-center">
                         { accounts &&
                             accounts.map( (account, i) => {
                                 return  <div key={`account-${i}`}>
@@ -41,7 +40,6 @@ function AccountPage() {
                                 })
                         }
                     </section>
-
             </div>
     );
 }

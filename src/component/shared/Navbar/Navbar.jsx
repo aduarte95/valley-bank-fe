@@ -11,9 +11,9 @@ function Navbar() {
         </button>
 
         <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <a  className="navbar-container__link nav-link" href="/"><i class="lar la-bell"></i>  </a>
-            <a  className="navbar-container__link nav-link" href="/"> <i class="las la-cog"></i>  </a>
-            <a  className="navbar-container__link nav-link" href="/"> <i class="las la-sign-out-alt"></i></a>
+            <a  className="navbar-container__link nav-link" href="/"><i className="lar la-bell"></i>  </a>
+            <a  className="navbar-container__link nav-link" href="/"> <i className="las la-cog"></i>  </a>
+            <a  className="navbar-container__link nav-link" href="/"> <i className="las la-sign-out-alt"></i></a>
         </div>
         </nav>
   );

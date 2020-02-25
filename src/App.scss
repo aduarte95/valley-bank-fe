@@ -61,4 +61,25 @@ html, body {
     background-color: transparent;
     background-image: none;
     border-color: $primary-color;
+
+    &:hover {
+      background-color:  $primary-color;
+      border-color: $primary-color;
+    }
+}
+
+.section-border {
+  margin: 2rem 0;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 5px;
+  padding: 16px 32px;
+  background-color: white;
+}
+
+.app-link {
+  color: $terciary-color;
+  &:hover {
+      color: $primary-color;
+      text-decoration: none;
+  }
 }

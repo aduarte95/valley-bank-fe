@@ -11,15 +11,16 @@ function Account({account}) {
   }
   return ( 
       <div className="account-container row">
-          <div className="account-container__info col"> 
-            <h3 className="account-container__name">
+          <div className="account-container__info col-6"> 
+            <Link className="account-container__name account-container__link" to="/">
               {account.name}
-            </h3> 
+            </Link> 
             <p className="account-container__content">
-              {account.accountNumber}
+            {account.accountNumber}
             </p>
           </div>
 
+          
           <div className="account-container__info col"> 
             <h3 className="account-container__title">
               Account balance
