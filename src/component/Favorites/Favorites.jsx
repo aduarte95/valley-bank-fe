@@ -12,8 +12,8 @@ function Favorites({ favorites}) {
       {favorites &&
         <div className="favorite-container">
           {
-            favorites.map( (favorite, i) => {
-              return <FavoriteCard favorite={favorite}></FavoriteCard>
+            favorites.map( favorite => {
+              return <FavoriteCard  key={`saving-${favorite.id.toString()}`} favorite={favorite}></FavoriteCard>
             })
           }
         </div>

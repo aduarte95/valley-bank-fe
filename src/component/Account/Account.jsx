@@ -42,11 +42,7 @@ function Account({account}) {
                 </Link>
               </div>
             </p>
-          </div>
-
-          
-
-          
+          </div>     
     </div>
   );
 }
