@@ -1,0 +1,30 @@
+@import '../../assets/variables';
+
+.account-container {
+    margin-bottom: 25px;
+    &__name {
+    }
+
+    &__name,
+    &__title {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    &__content {
+        color: $secondary-color;
+    }
+
+    &__action-icon {
+        font-size: 1.1rem;
+        margin-right: 0.2rem;
+    }
+
+    &__link {
+        color: $terciary-color;
+        &:hover {
+            color: $primary-color;
+            text-decoration: none;
+        }
+    }
+}

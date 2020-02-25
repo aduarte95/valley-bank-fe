@@ -123,7 +123,7 @@ function TransactionForm({accounts, favorites}) {
       {isSuccessful ?
         (<div class="alert alert-success alert-dismissible fade show" role="alert">
           The transaction have been completed successfully
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClose>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>) :

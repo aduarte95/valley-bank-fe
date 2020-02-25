@@ -30,16 +30,15 @@ function AccountPage() {
                     <Link to={'/'} className="btn btn-outline-primary">Open new account</Link>
                 </header>
                 
-                
-                    <section className="section-border d-flex flex-column justify-content-center">
-                        { accounts &&
-                            accounts.map( (account, i) => {
-                                return  <div key={`account-${i}`}>
-                                            <Account account={account} />
-                                        </div>
-                                })
-                        }
-                    </section>
+                <section className="section-border d-flex flex-column justify-content-center">
+                    { accounts &&
+                        accounts.map( (account, i) => {
+                            return  <div key={`account-${i}`}>
+                                        <Account account={account} />
+                                    </div>
+                            })
+                    }
+                </section>
             </div>
     );
 }
