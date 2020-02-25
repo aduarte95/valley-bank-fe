@@ -22,13 +22,18 @@ function FavoritePage() {
     }, []);
   
   return ( 
-    <div className="transaction-page-container">
-        <header className="transaction-page-container__header d-flex justify-content-between">
+    <div className="favorite-page-container">
+        <header className="favorite-page-container__header d-flex justify-content-between">
             <Title> Favorites </Title>
             <Link to={'/favorite/add-favorite'} className="btn btn-outline-primary">Add favorite</Link>
         </header>
+
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
         
-        <section className="section-border d-flex flex-column justify-content-center">
+        <section className="d-flex flex-column justify-content-center">
             <Favorites favorites={favorites}></Favorites>
         </section>
     </div>

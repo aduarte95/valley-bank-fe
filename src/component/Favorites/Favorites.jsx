@@ -10,7 +10,7 @@ function Favorites({ favorites}) {
   return (   
     <div>
       {favorites &&
-        <div className="favorite-container container">
+        <div className="favorite-container">
           {
             favorites.map( (favorite, i) => {
               return <FavoriteCard favorite={favorite}></FavoriteCard>
