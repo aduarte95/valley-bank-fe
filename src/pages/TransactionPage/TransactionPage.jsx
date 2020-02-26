@@ -23,6 +23,7 @@ function TransactionPage() {
         });
     }, []);
   
+
   return ( 
     <div className="transaction-page-container">
         <header className="transaction-page-container__header d-flex justify-content-between">

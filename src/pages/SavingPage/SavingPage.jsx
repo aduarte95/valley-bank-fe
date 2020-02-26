@@ -29,7 +29,7 @@ function SavingPage() {
                     <Link to={'add-saving'} className="btn btn-outline-primary">Create new saving</Link>
                 </header>
                 
-                <section className="d-flex flex-column justify-content-center">
+                <section className="section-border d-flex flex-column justify-content-center">
                     { accounts &&
                         accounts.map( (account, i) => {
                             return  <div key={`account-saving-${i}`}>

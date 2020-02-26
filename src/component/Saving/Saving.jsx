@@ -18,19 +18,15 @@ function Saving({account}) {
         console.log(error);
       });
   }, [account]);
-  console.log(savings)
+  
   return ( 
     <div className="saving-container">
     {savings.length !== 0 &&
-      <div className="section-border">
-          
-            <div className="saving-container__account-name col">
-                {account.name}
-            </div>
+      <div>
           {savings && savings.map( saving => {
-            return  <div className="row" key={`saving-${saving.id.toString()}`}>
+            return  <div className=" saving-container__savings row" key={`saving-${saving.id.toString()}`}>
                           <div className="saving-container__info col"> 
-                            <h3 className="saving-container__title">
+                            <h3 className="saving-container__title bold">
                             Name
                             </h3> 
                             <p className="saving-container__content">
@@ -38,7 +34,7 @@ function Saving({account}) {
                             </p>
                           </div>
                           <div className="saving-container__info col"> 
-                            <h3 className="saving-container__title">
+                            <h3 className="saving-container__title bold">
                             Balance
                             </h3> 
                             <p className="saving-container__content">
@@ -47,11 +43,20 @@ function Saving({account}) {
                           </div>
 
                           <div className="saving-container__info col"> 
-                            <h3 className="saving-container__title">
+                            <h3 className="saving-container__title bold">
                             Saving ammount
                             </h3> 
                             <p className="saving-container__content">
                               {saving.amount}
+                            </p>
+                          </div>
+
+                          <div className="saving-container__info col"> 
+                            <h3 className="saving-container__title bold">
+                            Related account
+                            </h3> 
+                            <p className="saving-container__content">
+                              {saving.accountModel.name} - {String(saving.accountModel.accountNumber).padStart(17, '0')}
                             </p>
                           </div>
                       </div>

@@ -39,29 +39,51 @@ function CreateSavingForm({accounts}) {
     const form = event.currentTarget;
     event.preventDefault();
     
-    if(form.checkValidity() === false) {   
+    if (allValidated() === false) {
       event.stopPropagation();
     } else {
-      if(accounts) {
-        if(accounts.length !== 0 && requestBody.accountModel.id === '' ) {
-          requestBody.accountModel.id = accounts[0].id;
-        }
-
-        axios.post(createSaving, requestBody)
-            .then(  response => {
-              if(response.data === 100) {
-                setIsSuccessful(true);
-              }
-            })
-            .catch(function (error) {
-              setIsSuccessful(false);
-              console.log(error);
-            });
+      if(form.checkValidity() === false) {   
+        event.stopPropagation();
+      } else {
+        if(accounts) {
+          if(accounts.length !== 0 && requestBody.accountModel.id === '' ) {
+            requestBody.accountModel.id = accounts[0].id;
           }
+
+          axios.post(createSaving, requestBody)
+              .then(  response => {
+                if(response.data === 100) {
+                  setIsSuccessful(true);
+                }
+              })
+              .catch(function (error) {
+                setIsSuccessful(false);
+                console.log(error);
+              });
+            }
+      }
     }
     
     setValidated(true);
   };
+
+  function allValidated(){
+    var allAreValidated = true;
+
+    for (var key in errors) {
+      if (errors.hasOwnProperty(key)) {
+        if(errors[key] !== 'formErrors') {
+          if(errors[key] === false) {
+            allAreValidated = false;
+            break;
+          }
+          
+        }
+      }
+    }
+
+    return allAreValidated;
+  }
 
   function validateField(fieldName, value) {
     let fieldValidationErrors = errors.formErrors;
@@ -150,7 +172,7 @@ function CreateSavingForm({accounts}) {
                   onChange={handleChange}>
                   { accounts &&
                     accounts.map( (account, i) => {
-                      return <option value={i} key={`saving-account-${i}`}> {account.accountNumber} {account.name} - ${account.balance} </option>
+                      return <option value={i} key={`saving-account-${i}`}> {String(account.accountNumber).padStart(17, '0')} {account.name} - ${account.balance} </option>
                     })
                   }
                 </Form.Control>
@@ -194,8 +216,8 @@ function CreateSavingForm({accounts}) {
               </Form.Control.Feedback>
             </Form.Group> */}
 
-            <Button className="login-form-container__button" type="submit">
-                Open Account
+            <Button className="btn-primary" type="submit">
+                Create Saving
             </Button>
           </Form>
         </div>)

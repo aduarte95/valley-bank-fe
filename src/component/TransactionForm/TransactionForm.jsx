@@ -3,6 +3,7 @@ import './TransactionForm.scss';
 import { Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { FormErrors } from '../FormErrors/FormErrors';
 
 const createTransaction = 'http://localhost:8080/api/v1/transaction';
 
@@ -18,10 +19,21 @@ const requestBody = {
   amountAtTrans: ''
 }
 
+const extraInfo = {
+  accountSelected: 0
+}
+
 function TransactionForm({accounts, favorites}) {
   const [validated, setValidated] = useState(false);
   const [ isSuccessful, setIsSuccessful ] = useState(false);
-
+  const [ errors, setErrors ] = useState( 
+    {
+      formErrors: 
+      {
+        amount: ''
+      }, 
+      amountValid: false
+    });
   /**
    *  Handles the submit form creating a new user on the server.
    * @param {*} event 
@@ -30,56 +42,69 @@ function TransactionForm({accounts, favorites}) {
     const form = event.currentTarget;
     event.preventDefault();
     
-    if(form.checkValidity() === false) {   
+    if (allValidated() === false) {
       event.stopPropagation();
     } else {
-      if(favorites && accounts) {
-        if(favorites.length !== 0 && requestBody.destinyAccount.id === '' ) {
-          requestBody.destinyAccount.id = favorites[0].accountModel.id;
-        }
-        if(accounts.length !== 0 && requestBody.accountModel.id === '' ) {
-          requestBody.accountModel.id = accounts[0].id;
-          requestBody.amountAtTrans = accounts[0].balance;
-        }
+      if(form.checkValidity() === false) {   
+        event.stopPropagation();
+      } else {
+        if(favorites && accounts) {
+          if(favorites.length !== 0 && requestBody.destinyAccount.id === '' ) {
+            requestBody.destinyAccount.id = favorites[0].accountModel.id;
+          }
+          if(accounts.length !== 0 && requestBody.accountModel.id === '' ) {
+            requestBody.accountModel.id = accounts[0].id;
+            requestBody.amountAtTrans = accounts[0].balance;
+          }
 
-        console.log(requestBody)
-        axios.post(createTransaction, requestBody)
-            .then(  response => {
-              if(response.data === 100) {
-                setIsSuccessful(true);
-              }
-            })
-            .catch(function (error) {
-              setIsSuccessful(false);
-              console.log(error);
-            });
+          console.log(requestBody)
+          axios.post(createTransaction, requestBody)
+              .then(  response => {
+                if(response.data === 100) {
+                  setIsSuccessful(true);
+                }
+              })
+              .catch(function (error) {
+                setIsSuccessful(false);
+                console.log(error);
+              });
+        }
       }
     }
     
     setValidated(true);
   };
 
-  /*function clearForm(form) {
-    var formElements = form.elements;
-    var fieldType;
+  function allValidated(){
+    var allAreValidated = true;
 
-    for(var i=0; i<formElements.length; i++) {
-      fieldType = formElements[i].type.toLowerCase();
-
-      switch (fieldType)
-      {
-      
-      case "select-one":
-          formElements[i].selectedIndex = -1;
-          break;
-      default:
-          formElements[i].value = "";
-          break;
+    for (var key in errors) {
+      if (errors.hasOwnProperty(key)) {
+        if(errors[key] !== 'formErrors') {
+          if(errors[key] === false) {
+            allAreValidated = false;
+            break;
+          }
+          
+        }
       }
-  
     }
 
-  }*/
+    return allAreValidated;
+  }
+
+  function validateField(fieldName, value) {
+    let fieldValidationErrors = errors.formErrors;
+    let fieldValid = errors[fieldName +  "Valid"];
+    
+    fieldValid = value <= accounts[extraInfo.accountSelected].balance;
+    fieldValidationErrors[fieldName] = fieldValid ? '' : "You don't have enough money on your account";
+    
+    setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
+      [fieldName + 'Valid']: fieldValid
+    }));
+
+  }
 
   function handleChange(event) {
     var value = event.target.value;
@@ -89,17 +114,23 @@ function TransactionForm({accounts, favorites}) {
       case 'amount':
         if(validateNumber(value)) {
           requestBody.amount = Number(value);
+          validateField(name, value);
         } else {
           event.target.value = value.substring(0, value.length - 1);
         }
         break;
       case 'accountModel':
         requestBody[name].id = accounts[value].id;
+        extraInfo.accountSelected = value;
         requestBody.amountAtTrans = accounts[value].balance;
+        break;
+      case 'destinyAccount':
+        requestBody[name].id = favorites[value].accountModel.id;
         break;
       default:
         
-        requestBody[name].id = favorites[value].accountModel.id;
+        requestBody[name] = value;
+        console.log('Description',  requestBody[name])
         break;
     }
 
@@ -116,11 +147,8 @@ function TransactionForm({accounts, favorites}) {
   return (   
     <div>
       {isSuccessful ?
-        (<div class="alert alert-success alert-dismissible fade show" role="alert">
+        (<div className="alert alert-success alert-dismissible fade show" role="alert">
           The transaction have been completed successfully
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClose>
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>) :
        
         (<div className="transaction-form-container__wrapper">
@@ -136,7 +164,7 @@ function TransactionForm({accounts, favorites}) {
                   className="transaction-form-container__select">
                   { accounts &&
                     accounts.map( (account, i) => {
-                      return <option value={i} key={`origin-account-${i}`}> {account.name} </option>
+                      return <option value={i} key={`origin-account-${i}`}> {account.name} {String(account.accountNumber).padStart(17, '0')} - ${account.balance} </option>
                     })
                   }
                 </Form.Control>
@@ -155,7 +183,7 @@ function TransactionForm({accounts, favorites}) {
                   className="transaction-form-container__select">
                   { favorites &&
                       favorites.map( (favorite, i) => {
-                        return <option value={i} key={`destiny-account-${i}`}> {favorite.name} </option>
+                        return <option value={i} key={`destiny-account-${i}`}> {favorite.name} {String(favorite.accountModel.accountNumber).padStart(17, '0')} </option>
                       })
                   }
                 </Form.Control>
@@ -174,10 +202,14 @@ function TransactionForm({accounts, favorites}) {
               type="text" 
               maxLength="7"
               placeholder="Amount" 
-              onChange={handleChange}/>
+              onChange={handleChange}
+              className={`${errorClass(errors.formErrors.amount)}`}/>
               <Form.Control.Feedback type="invalid">
                 Please enter the transaction amount.
               </Form.Control.Feedback>
+              <div className="panel panel-default">
+                  <FormErrors formError={errors.formErrors.amount} />
+              </div>
             </Form.Group>
 
             <Form.Group controlId="formDescription">
@@ -195,9 +227,13 @@ function TransactionForm({accounts, favorites}) {
             </Button>
           </Form>
         </div>)
-      }
+        }
     </div>
   );
+}
+
+function errorClass(error) {
+  return(error.length === 0 ? '' : 'has-error');
 }
 
 export default TransactionForm;

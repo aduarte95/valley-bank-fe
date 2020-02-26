@@ -94,8 +94,8 @@ function LoginForm() {
       {failedLogin &&
         <div className="alert alert-danger alert-dismissible fade show" role="alert">
           Your username or password is incorrect. Please try again.
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={() => console.log('hola')}>
+              <span aria-hidden="true">&times;</span>
           </button>
         </div>
       }
