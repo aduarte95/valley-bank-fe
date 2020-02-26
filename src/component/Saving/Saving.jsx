@@ -2,7 +2,6 @@ import React from 'react';
 import './Saving.scss';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import {Link}  from 'react-router-dom';
 
 function Saving({account}) {
   const [ savings, setSavings ] = useState([]);
@@ -17,13 +16,44 @@ function Saving({account}) {
       .catch(function (error) {
         console.log(error);
       });
-  }, [account]);
+  }, [account, savings]);
+
+  function withdrawSaving(saving, index) {
+    const getAccount = `http://localhost:8080/api/v1/account/${saving.accountModel.id}`;
+    const putAccount = `http://localhost:8080/api/v1/account`;
+    const putSaving = `http://localhost:8080/api/v1/saving`
+
+    axios.get(getAccount)
+      .then(  response => {
+          var account = response.data;
+          account.savingAmount = saving.amount;
+
+          axios.put(putAccount, account)
+          .then (
+            response => {
+              saving.amount = 0;
+              
+              axios.put(putSaving, saving)
+              .then( r => {
+                var temp = savings;
+                temp[index] = saving;
+                setSavings(temp)
+              }) 
+              .catch( e => console.log(e));
+            }
+
+          )
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
   
   return ( 
     <div className="saving-container">
     {savings.length !== 0 &&
       <div>
-          {savings && savings.map( saving => {
+          {savings && savings.map( (saving, i) => {
             return  <div className=" saving-container__savings row" key={`saving-${saving.id.toString()}`}>
                           <div className="saving-container__info col"> 
                             <h3 className="saving-container__title bold">
@@ -69,7 +99,7 @@ function Saving({account}) {
                                 <button 
                                 className="saving-container__action app-link action-container" 
                                 to={`${account.id}/transactions`}
-                                onClick={() => withdrawSaving(saving)}>
+                                onClick={() => withdrawSaving(saving, i)}>
                                   <i className="saving-container__icon action-icon las la-redo-alt"></i>
                                   Withdraw savings
                                 </button>
@@ -84,31 +114,6 @@ function Saving({account}) {
   )
 }
 
-function withdrawSaving(saving) {
-    const getAccount = `http://localhost:8080/api/v1/account/${saving.accountModel.id}`;
-    const putAccount = `http://localhost:8080/api/v1/account`;
-    const putSaving = `http://localhost:8080/api/v1/saving`
 
-    console.log('hola')
-    axios.get(getAccount)
-      .then(  response => {
-          var account = response.data;
-          account.savingAmount = saving.amount;
-          console.log(account)
-          axios.put(putAccount, account)
-          .then (
-            response => {
-              saving.amount = 0;
-              console.log(saving)
-              axios.put(putSaving, saving)
-              .catch( e => console.log(e));
-            }
-
-          )
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-}
 
 export default Saving;

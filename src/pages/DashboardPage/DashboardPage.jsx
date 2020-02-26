@@ -12,6 +12,7 @@ import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
 import AddFavoritePage from '../AddFavoritePage/AddFavoritePage';
 import CreateSavingPage from '../CreateSavingPage/CreateSavingPage';
 import TransactionsListPage from '../TransactionsListPage/TransactionsListPage';
+import FavoriteAccountsPage from '../FavoriteAccountsPage/FavoriteAccountsPage';
 
 
 function DashboardPage({match}) {
@@ -21,6 +22,7 @@ function DashboardPage({match}) {
                     <div className="dashboard-container__wrapper">
                         <Navbar></Navbar>
                         <div className="container dashboard-container__pages">
+                            <Route path={`${match.url}/:id/accounts`} component={props => <FavoriteAccountsPage {...props}/>}  />
                             <Route path={`${match.url}/:id/transactions`} component={props => <TransactionsListPage {...props}/>}  />
                             <Route path={`${match.url}/add-saving`} component={props => <CreateSavingPage {...props}/>}  />
                             <Route path={`${match.url}/add-favorite`} component={props => <AddFavoritePage {...props}/>}  />
