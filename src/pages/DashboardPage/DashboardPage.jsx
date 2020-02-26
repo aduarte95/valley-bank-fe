@@ -10,6 +10,7 @@ import TransactionPage from '../TransactionPage/TransactionPage';
 import SavingPage from '../SavingPage/SavingPage';
 import CreateAccountPage from '../CreateAccountPage/CreateAccountPage';
 import AddFavoritePage from '../AddFavoritePage/AddFavoritePage';
+import CreateSavingPage from '../CreateSavingPage/CreateSavingPage';
 
 
 function DashboardPage({match}) {
@@ -19,6 +20,7 @@ function DashboardPage({match}) {
                     <div className="dashboard-container__wrapper">
                         <Navbar></Navbar>
                         <div className="container dashboard-container__pages">
+                            <Route path={`${match.url}/add-saving`} component={props => <CreateSavingPage {...props}/>}  />
                             <Route path={`${match.url}/add-favorite`} component={props => <AddFavoritePage {...props}/>}  />
                             <Route path={`${match.url}/new-account`} component={props => <CreateAccountPage {...props}/>}  />
                             <Route path={`${match.url}/savings`} component={props => <SavingPage {...props}/> }/>

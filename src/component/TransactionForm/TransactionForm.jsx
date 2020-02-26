@@ -97,15 +97,12 @@ function TransactionForm({accounts, favorites}) {
         requestBody[name].id = accounts[value].id;
         requestBody.amountAtTrans = accounts[value].balance;
         break;
-      case 'destinyAccount':
-        break;
       default:
         
         requestBody[name].id = favorites[value].accountModel.id;
         break;
     }
 
-    console.log(name + " " + requestBody[name]);
   }
 
   function validateNumber(value) {

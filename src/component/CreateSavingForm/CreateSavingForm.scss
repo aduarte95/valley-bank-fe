@@ -1,0 +1,10 @@
+@import '../../assets/variables';
+
+.transaction-form-container {
+    &__link {
+        display: block;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+}

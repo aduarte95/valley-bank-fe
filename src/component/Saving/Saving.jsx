@@ -31,6 +31,14 @@ function Saving({account}) {
             return  <div className="row" key={`saving-${saving.id.toString()}`}>
                           <div className="saving-container__info col"> 
                             <h3 className="saving-container__title">
+                            Name
+                            </h3> 
+                            <p className="saving-container__content">
+                              {saving.name}
+                            </p>
+                          </div>
+                          <div className="saving-container__info col"> 
+                            <h3 className="saving-container__title">
                             Balance
                             </h3> 
                             <p className="saving-container__content">
@@ -40,28 +48,10 @@ function Saving({account}) {
 
                           <div className="saving-container__info col"> 
                             <h3 className="saving-container__title">
-                              Start date
+                            Saving ammount
                             </h3> 
                             <p className="saving-container__content">
-                              {saving.startDate}
-                            </p>
-                          </div>
-
-                          <div className="saving-container__info col"> 
-                            <h3 className="saving-container__title">
-                              End date
-                            </h3> 
-                            <p className="saving-container__content">
-                              {saving.endDate}
-                            </p>
-                          </div>
-
-                          <div className="saving-container__info col"> 
-                            <h3 className="saving-container__title">
-                            Initial balance
-                            </h3> 
-                            <p className="saving-container__content">
-                              {saving.initialBalance}
+                              {saving.amount}
                             </p>
                           </div>
                       </div>
