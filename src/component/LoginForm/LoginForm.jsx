@@ -137,7 +137,7 @@ function LoginForm() {
               onChange={handleChange}
               checked/>
           </Form.Group>          
-          <Button className="login-form-container__button login-form-container__button--icon-effect" type="submit">
+          <Button className="login-form-container__button login-form-container__button--icon-effect btn-primary" type="submit">
               Login
           </Button>
 

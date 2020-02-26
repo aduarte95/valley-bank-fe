@@ -31,10 +31,6 @@ function CreateAccountForm({accounts, favorites}) {
       transactionLimitValid: false
     });
 
-  /**
-   *  Handles the submit form creating a new user on the server.
-   * @param {*} event 
-   */
   function handleSubmit(event) {
     const form = event.currentTarget;
     event.preventDefault();
@@ -118,22 +114,23 @@ function CreateAccountForm({accounts, favorites}) {
         (<div className="create-account-form-container__wrapper">
           <Form className="create-account-form-container__form" noValidate validated={validated} onSubmit={handleSubmit}> 
           <Form.Group controlId="formName">
-              <Form.Label>Name or Description</Form.Label>
+              <Form.Label className="bold">Name or Description</Form.Label>
               <Form.Control 
               type="text"
               name="name"
               maxLength="30"
+              placeholder="Name or Description"
               onChange={handleChange}/>
             </Form.Group>
 
             <Form.Group controlId="newAccountcurrencySelect">
-              <Form.Label>Currency</Form.Label>
+              <Form.Label className="bold">Currency</Form.Label>
               <Form.Control
                 required
                 as="select"
                 name="currency"
                 onChange={handleChange}>
-                  <option value="0"> Dollares </option>
+                  <option className="create-account-form-container__option" value="0"> Dollares </option>
                   <option value="1"> Colones </option>
               </Form.Control>
             </Form.Group>
@@ -158,7 +155,7 @@ function CreateAccountForm({accounts, favorites}) {
               </Form.Control.Feedback>
             </Form.Group> */}
 
-            <Button className="login-form-container__button" type="submit">
+            <Button className="" type="submit">
                 Open Account
             </Button>
           </Form>

@@ -3,20 +3,25 @@ import './Account.scss';
 import { Link } from 'react-router-dom';
 
 function Account({account}) {
-  console.log(account);
-  var currency = '$';
+  var currency;
+  var accountNumber = String(account.accountNumber).padStart(17, '0')
 
+  if(account.currencyId === 0) {
+    currency = '₡';
+  } else {
+    currency = '$'
+  }
+  
   return ( 
       <div className="account-container row">
-          <div className="account-container__info col-6"> 
-            <Link className="account-container__name account-container__link" to="/">
+          <div className="account-container__info col"> 
+            <h3 className="account-container__title">
               {account.name}
-            </Link> 
+            </h3> 
             <p className="account-container__content">
-            {account.accountNumber}
+            {accountNumber}
             </p>
           </div>
-
           
           <div className="account-container__info col"> 
             <h3 className="account-container__title">
@@ -31,14 +36,14 @@ function Account({account}) {
             <h3 className="account-container__title">
               Acctions
             </h3> 
-            <p className="account-container__content">
+            <div className="account-container__content">
               <div className="d-flex ">
                 <Link className="account-container__link d-flex no-wrap" to="/">
-                  <i class="account-container__action-icon d-flex align-items-center las la-history"/> 
+                  <i className="account-container__action-icon d-flex align-items-center las la-history"/> 
                   See transactions
                 </Link>
               </div>
-            </p>
+            </div>
           </div>     
     </div>
   );

@@ -62,9 +62,30 @@ html, body {
     background-image: none;
     border-color: $primary-color;
 
+    &:hover,
+    &:active {
+      background-color:  $primary-color !important;
+      border-color: $primary-color !important;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 0.2rem rgba(170, 49, 80, .5) !important;
+    }
+}
+
+.btn-primary {
+    background-color: $primary-color;
+    border-color: $primary-color;
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    color: white;
+    text-transform: capitalize;
+
     &:hover {
-      background-color:  $primary-color;
-      border-color: $primary-color;
+        background-color: $primary-color;
+        border-color: $primary-color;
     }
 }
 
@@ -72,7 +93,7 @@ html, body {
   margin: 2rem 0;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: 5px;
-  padding: 16px 32px;
+  padding: 32px;
   background-color: white;
 }
 
@@ -82,4 +103,13 @@ html, body {
       color: $primary-color;
       text-decoration: none;
   }
+}
+
+.form-control:focus {
+  border-color: #f8c1364d;
+  box-shadow: 0 0 0 0.2rem #f8c13640;
+}
+
+.bold {
+  font-weight: 600;
 }

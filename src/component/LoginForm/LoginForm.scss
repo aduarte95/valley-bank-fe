@@ -20,14 +20,6 @@
 
     &__button {
         width: 100%;
-        background-color: $primary-color;
-        border-color: $primary-color;
-        text-align: center;
-        display: inline-block;
-        position: relative;
-        text-decoration: none;
-        color: white;
-        text-transform: capitalize;
 
         &:hover {
             background-color: $primary-color;
