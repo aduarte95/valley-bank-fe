@@ -113,3 +113,16 @@ html, body {
 .bold {
   font-weight: 600;
 }  
+
+.action-container {
+  display:  flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.action-icon {
+  font-size: 1.1rem;
+  margin-right: 0.2rem;
+  display: flex;
+  align-items: center;
+}

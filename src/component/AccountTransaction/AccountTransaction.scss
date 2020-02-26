@@ -14,4 +14,17 @@
     &__content {
         color: $secondary-color;
     }
+
+    &__action-icon {
+        font-size: 1.1rem;
+        margin-right: 0.2rem;
+    }
+
+    &__link {
+        color: $terciary-color;
+        &:hover {
+            color: $primary-color;
+            text-decoration: none;
+        }
+    }
 }

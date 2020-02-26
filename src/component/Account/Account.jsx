@@ -34,12 +34,12 @@ function Account({account}) {
 
           <div className="account-container__info col"> 
             <h3 className="account-container__title">
-              Acctions
+              Actions
             </h3> 
             <div className="account-container__content">
               <div className="d-flex ">
-                <Link className="account-container__link d-flex no-wrap" to="/">
-                  <i className="account-container__action-icon d-flex align-items-center las la-history"/> 
+                <Link className="app-link action-container" to={`${account.id}/transactions`}>
+                  <i className="action-icon las la-history"/> 
                   See transactions
                 </Link>
               </div>

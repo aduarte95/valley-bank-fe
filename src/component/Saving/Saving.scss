@@ -12,4 +12,18 @@
     &__savings {
         padding: 16px;
     }
+
+    &__action {
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    &__icon {
+        font-size: 1rem;
+    }
+}
+
+.red {
+    color:red
 }
