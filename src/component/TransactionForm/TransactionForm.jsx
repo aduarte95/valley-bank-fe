@@ -123,45 +123,51 @@ function TransactionForm({accounts, favorites}) {
           </button>
         </div>) :
        
-        (<div className="sign-up-form-container__wrapper">
-          <Form className="sign-up-form-container__form" noValidate validated={validated} onSubmit={handleSubmit}> 
+        (<div className="transaction-form-container__wrapper">
+          <Form className="transaction-form-container__form" noValidate validated={validated} onSubmit={handleSubmit}> 
             <Form.Group controlId="accountModelSelect">
-              <Form.Label>Origin Account</Form.Label>
-              <Form.Control
-                required
-                as="select"
-                name="accountModel"
-                onChange={handleChange}>
-                { accounts &&
-                  accounts.map( (account, i) => {
-                    return <option value={i} key={`origin-account-${i}`}> {account.name} </option>
-                  })
-                }
-              </Form.Control>
-              <Link to={'new-account'} className="btn btn-outline-primary">Open new account</Link>
+              <Form.Label className="bold">Origin Account</Form.Label>
+              <div className="d-flex">
+                <Form.Control
+                  required
+                  as="select"
+                  name="accountModel"
+                  onChange={handleChange}
+                  className="transaction-form-container__select">
+                  { accounts &&
+                    accounts.map( (account, i) => {
+                      return <option value={i} key={`origin-account-${i}`}> {account.name} </option>
+                    })
+                  }
+                </Form.Control>
+                <Link to={'new-account'} className="transaction-form-container__button btn btn-outline-primary">Open new account</Link>
+              </div>
             </Form.Group>
 
             <Form.Group controlId="destinyAccountSelect">
               <Form.Label>Destiny Account</Form.Label>
-              <Form.Control 
-                required 
-                as="select"
-                name="destinyAccount"
-                onChange={handleChange}>
-                { favorites &&
-                    favorites.map( (favorite, i) => {
-                      return <option value={i} key={`destiny-account-${i}`}> {favorite.name} </option>
-                    })
-                }
-              </Form.Control>
-              <Form.Control.Feedback type="invalid">
-                You must create a favorite account to select it here.
-              </Form.Control.Feedback>
-              <Link to={'add-favorite'} className="btn btn-outline-primary">Add favorite</Link>
+              <div className="d-flex">
+                <Form.Control 
+                  required 
+                  as="select"
+                  name="destinyAccount"
+                  onChange={handleChange}
+                  className="transaction-form-container__select">
+                  { favorites &&
+                      favorites.map( (favorite, i) => {
+                        return <option value={i} key={`destiny-account-${i}`}> {favorite.name} </option>
+                      })
+                  }
+                </Form.Control>
+                <Form.Control.Feedback type="invalid">
+                  You must create a favorite account to select it here.
+                </Form.Control.Feedback>
+                <Link to={'add-favorite'} className="transaction-form-container__button btn btn-outline-primary">Add favorite</Link>
+              </div>
             </Form.Group>
 
             <Form.Group controlId="formAmount">
-              <Form.Label>Amount</Form.Label>
+              <Form.Label className="bold">Amount</Form.Label>
               <Form.Control 
               required 
               name="amount"
@@ -175,15 +181,16 @@ function TransactionForm({accounts, favorites}) {
             </Form.Group>
 
             <Form.Group controlId="formDescription">
-              <Form.Label>Description</Form.Label>
+              <Form.Label className="bold">Description</Form.Label>
               <Form.Control 
               type="text"
               maxLength="30"
               name="description"
-              onChange={handleChange}/>
+              onChange={handleChange}
+              placeholder="Description"/>
             </Form.Group>
 
-            <Button className="login-form-container__button" type="submit">
+            <Button className="btn-primary" type="submit">
                 Make transaction
             </Button>
           </Form>
