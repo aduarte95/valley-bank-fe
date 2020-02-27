@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import './FavoriteAccount.scss';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
 
 function FavoriteAccount({favorite}) {
   

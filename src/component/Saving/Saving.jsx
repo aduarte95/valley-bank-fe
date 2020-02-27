@@ -8,6 +8,7 @@ import { Form } from 'react-bootstrap';
 function Saving({account}) {
   const [ savings, setSavings ] = useState([]);
   const [ showAdd, setShowAdd ] = useState([]);
+  const [addedAmount, setAddedAmount] = useState(0);
   const [ errors, setErrors ] = useState( 
     {
       formErrors: 
@@ -16,7 +17,6 @@ function Saving({account}) {
       }, 
       amountValid: false
     });
-  var addedAmount = 0;
 
   useEffect(() => {
     const getAccountUrl = `http://localhost:8080/api/v1/account/${account.id}`;
@@ -28,82 +28,77 @@ function Saving({account}) {
       .catch(function (error) {
         console.log(error);
       });
-  }, [errors]);
+  }, [savings, errors, showAdd, addedAmount, account.id]);
 
-  function withdrawSaving(saving, index) {
-    const getAccount = `http://localhost:8080/api/v1/account/${saving.accountModel.id}`;
-    const putAccount = `http://localhost:8080/api/v1/account`;
-    const putSaving = `http://localhost:8080/api/v1/saving`
 
-    axios.get(getAccount)
-      .then(  response => {
-          var account = response.data;
-          account.savingAmount = saving.amount;
+  function withdrawSaving(saving, index, isWithdraw) {
+    validateField('amount', saving.id)
+    
+    if(errors['amountValid' + saving.id]) {
+      const getAccount = `http://localhost:8080/api/v1/account/${saving.accountModel.id}`;
+      const putAccount = `http://localhost:8080/api/v1/account`;
+      const putSaving = `http://localhost:8080/api/v1/saving`
 
-          axios.put(putAccount, account)
-          .then (
-            response => {
-              saving.amount = 0;
-              
-              axios.put(putSaving, saving)
-              .then( r => {
-                var temp = savings;
-                temp[index] = saving;
-                setSavings(temp)
-              }) 
-              .catch( e => console.log(e));
+      axios.get(getAccount)
+        .then(  response => {
+            var account = response.data;
+            
+            if(isWithdraw) {
+              account.savingAmount = saving.currentBalance;
+            } else {
+              account.savingAmountAdded = addedAmount;
             }
 
-          )
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+            axios.put(putAccount, account)
+            .then (
+              response => {
+                
+                if(isWithdraw) {
+                  saving.currentBalance = 0;
+                } else {
+                  saving.savingAmountAdded = addedAmount;
+                }
+                
+                console.log(saving.a)
+                axios.put(putSaving, saving)
+                .then( r => {
+                  var temp = savings;
+                  temp[index] = saving;
+                  setSavings(temp)
+                  
+                }) 
+                .catch( e => console.log(e));
+              }
+
+            )
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
   }
   
-  function handleChange(event, savingId) {
+  function handleChange(event) {
     var value = event.target.value;
-    var name = event.target.name;
     
     if(validateNumber(value)) {
-      addedAmount = Number(value);
-      validateField(name + savingId, value, savingId)
+      setAddedAmount(Number(value));
+      
     } else {
       event.target.value = value.substring(0, value.length - 1);
     }
   }
 
-  function allValidated(){
-    var allAreValidated = true;
-
-    for (var key in errors) {
-      if (errors.hasOwnProperty(key)) {
-        if(errors[key] !== 'formErrors') {
-          if(errors[key] === false) {
-            allAreValidated = false;
-            break;
-          }
-          
-        }
-      }
-    }
-
-    return allAreValidated;
-  }
-
-  function validateField(fieldName, value, savingId) {
+  function validateField(fieldName, savingId) {
     let fieldValidationErrors = errors.formErrors;
-    let fieldValid = errors[fieldName +  "Valid" + savingId];
     
-    fieldValid = value <= account.balance || value === 0;
-    fieldValidationErrors[fieldName] = fieldValid ? '' : "You don't have enough money on your account";
+    errors[fieldName +  "Valid" + savingId] = addedAmount <= account.balance || addedAmount === 0;
+    var fieldValid = errors[fieldName +  "Valid" + savingId];
+    fieldValidationErrors[fieldName + savingId] = fieldValid ? '' : "You don't have enough money on your account";
     
     setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
       [fieldName + 'Valid']: fieldValid
     }));
-
-    console.log(errors)
-
   }
 
   function validateNumber(value) {
@@ -139,15 +134,6 @@ function Saving({account}) {
 
                           <div className="saving-container__info col"> 
                             <h3 className="saving-container__title bold">
-                            Saving amount
-                            </h3> 
-                            <p className={(saving.amount === 0 ? 'red ' : '' ) + "saving-container__content"}>
-                              {saving.amount}
-                            </p>
-                          </div>
-
-                          <div className="saving-container__info col"> 
-                            <h3 className="saving-container__title bold">
                             Related account
                             </h3> 
                             <p className="saving-container__content">
@@ -163,7 +149,7 @@ function Saving({account}) {
                                 <button 
                                 className="saving-container__action app-link action-container" 
                                 to={`${account.id}/transactions`}
-                                onClick={() => withdrawSaving(saving, i)}>
+                                onClick={() => withdrawSaving(saving, i, true)}>
                                   <i className="saving-container__icon action-icon las la-redo-alt"></i>
                                   &nbsp;Withdraw savings
                                 </button>
@@ -177,7 +163,7 @@ function Saving({account}) {
                                   setShowAdd(oldObject => ({...oldObject, [saving.id]: true}))  
                                  }
                                 }}>
-                                  <i className="las la-plus-circle"></i> 
+                                  <i className="saving-container__icon las la-plus-circle"></i> 
                                   &nbsp;Add amount
                                 </button>
                               {(showAdd && showAdd[saving.id]  ) && 
@@ -188,16 +174,16 @@ function Saving({account}) {
                                     required 
                                     name="amount"
                                     type="text" 
-                                    maxLength="6"
+                                    maxLength="7"
                                     placeholder="Add Amount" 
-                                    onChange={(e) => handleChange(e, saving.id)}
-                                    className={`${errorClass(errors.formErrors['amount' + saving.id] )}`}/>
+                                    onChange={(e) => handleChange(e)}
+                                    className={`${() => errorClass(errors.formErrors['amount' + saving.id] )}`}/>
                                     <div className="panel panel-default">
                                         <FormErrors formError={errors.formErrors['amount' + saving.id]} />
                                     </div>
                                   </Form.Group>
-                                  <button className="saving-container__button">
-                                    <i className="las la-plus-circle"></i>
+                                  <button onClick={() => withdrawSaving(saving, i, false)} className="saving-container__button">
+                                    <i className="saving-container__bnt-icon las la-plus-circle"></i>
                                   </button>
                                 </div>
                               }
