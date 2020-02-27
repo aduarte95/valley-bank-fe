@@ -3,7 +3,7 @@
 .menu-item-container {
     position: relative;
     color: $icon-color;
-    height: 65px;
+    height: $navbar-height;
     font-size: 1.5rem;
 
     &::after {

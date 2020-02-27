@@ -7,6 +7,8 @@ import AccountTransaction from '../../component/AccountTransaction/AccountTransa
 
 function TransactionsListPage({match}) {
     const [ account, setAccount ] = useState([]);
+    const [ transactions, setTransactions ] = useState();
+
 
     useEffect(() => {
         const getAccountTransactionsUrl = `http://localhost:8080/api/v1/account/${match.params.id}`;
@@ -15,6 +17,8 @@ function TransactionsListPage({match}) {
           .then(  response => {
               
             setAccount(response.data);
+            setTransactions(response.data.transactions);
+
           })
           .catch(function (error) {
             console.log(error);
@@ -28,12 +32,16 @@ function TransactionsListPage({match}) {
                 </header>
                 
                 <section className="section-border d-flex flex-column justify-content-center">
-                    { (account && account.transactions) &&
-                        account.transactions.map( (transaction, i) => {
+                    { (transactions && transactions.length > 0) ?
+                        (transactions.map( (transaction, i) => {
                             return  <div key={`account-transaction-${i}`}>
-                                        <AccountTransaction transactionId={transaction.id} account={account} />
+                                        <AccountTransaction transactionId={transaction.id} account={account} compareDate={false} />
                                     </div>
-                            })
+                            })) :
+                            (
+                                <div className="alert alert-success alert-dismissible fade show" role="alert">
+                                    The transaction have been completed successfully
+                                </div>)
                     }
                 </section>
             </div>

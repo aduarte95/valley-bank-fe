@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './AccountTransaction.scss';
 import axios from 'axios';
+import dayjs from 'dayjs';
 
-function AccountTransaction({transactionId, account}) {
-  const [ transaction, setTransaction ] = useState([]);
+function AccountTransaction({transactionId, account, compareDate}) {
+  const [ transaction, setTransaction ] = useState();
   var currency;
 
   if(account.currencyId === 0) {
@@ -17,16 +18,27 @@ function AccountTransaction({transactionId, account}) {
 
         axios.get(getTransaction)
           .then(  response => {
+              if(compareDate) {
+                const now = new Date(); 
+                now.setDate(now.getDate()-3);
+
+                const comparingDate = dayjs(now).format('DD-MM-YYYY');
+                const currentDate = dayjs(response.data.date).format('DD-MM-YYYY');
+
+                console.log(response.data.date + ' ' + currentDate + ' ' + comparingDate)
+                if(currentDate >= comparingDate) {
+                  setTransaction(response.data);
+                }
+                 
+              } else {
+                setTransaction(response.data);
+              }
               
-            setTransaction(response.data);
           })
           .catch(function (error) {
             console.log(error);
           });
-      }, [transactionId]);
-      if(transaction) {
-        console.log(transaction)
-      }
+      }, [transactionId, compareDate]);
 
   return ( 
     <div>
@@ -37,7 +49,7 @@ function AccountTransaction({transactionId, account}) {
                 Date
               </h3> 
               <p className="account-container__content">
-              {transaction.date}
+              {dayjs(transaction.date).format('MMMM D, YYYY')}
               </p>
             </div>
             

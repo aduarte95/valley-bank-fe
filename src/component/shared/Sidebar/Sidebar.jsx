@@ -27,16 +27,6 @@ function Sidebar({children}) {
                 <p className="sidebar-container__description"> Savings </p>
             </MenuItem>
 
-            <MenuItem link="/dashboard/budgets">
-                <i className="las la-calculator"></i>
-                <p className="sidebar-container__description"> Budgets </p>
-            </MenuItem>
-
-            <MenuItem link="/dashboard/services">
-                <i className="las la-mobile"></i>
-                <p className="sidebar-container__description"> Services </p>
-            </MenuItem>
-
             <MenuItem link="/dashboard/favorites">
                 <i className="lar la-star"></i>
                 <p className="sidebar-container__description"> Favorites </p>
