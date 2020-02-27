@@ -18,17 +18,20 @@ function Saving({account}) {
       amountValid: false
     });
 
+    
   useEffect(() => {
+    console.log(savings, errors, showAdd, addedAmount, account.id)
     const getAccountUrl = `http://localhost:8080/api/v1/account/${account.id}`;
     
     axios.get(getAccountUrl)
       .then(  response => {
         setSavings(response.data.savings);
+        
       })
       .catch(function (error) {
         console.log(error);
       });
-  }, [savings, errors, showAdd, addedAmount, account.id]);
+  }, [ showAdd, addedAmount]);
 
 
   function withdrawSaving(saving, index, isWithdraw) {
@@ -127,7 +130,7 @@ function Saving({account}) {
                             <h3 className="saving-container__title bold">
                             Balance
                             </h3> 
-                            <p className="saving-container__content">
+                            <p className={(saving.currentBalance === 0 ? 'red' : '') + ' saving-container__content'}>
                               {saving.currentBalance}
                             </p>
                           </div>
