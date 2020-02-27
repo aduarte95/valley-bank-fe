@@ -17,10 +17,49 @@
         border: none;
         background-color: transparent;
         padding: 0;
+        min-width: max-content;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    &__action-wrapper {
+        display: flex;
     }
 
     &__icon {
         font-size: 1rem;
+    }
+
+    &__add {
+        display: flex;
+        align-items: center;
+        position: relative;
+        
+        margin-top: 5px;
+    }
+
+    &__button {
+        height: fit-content;
+        background-color: transparent;
+        color: $terciary-color;
+        border: none;
+        font-size: 1.5rem;
+        position: absolute;
+        right: 0;
+    }
+
+    &__input {
+        margin: 0;
+        display: flex;
+        align-items: center;
+
+    }
+
+    &__label {
+        display: block;
+        width: 100%;
     }
 }
 

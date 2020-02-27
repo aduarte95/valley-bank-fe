@@ -9,7 +9,8 @@ const createSaving = 'http://localhost:8080/api/v1/saving';
 
 const requestBody = {
     accountModel: {
-      id: ''
+      id: '',
+      savingAmount: 0
     },
     name: 'Saving',
     amount: 0,
