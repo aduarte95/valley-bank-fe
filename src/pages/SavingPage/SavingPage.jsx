@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Saving from '../../component/Saving/Saving';
 
-function SavingPage() {
+function SavingPage({setSaving}) {
     const [ accounts, setAccounts ] = useState([]);
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function SavingPage() {
                     { accounts &&
                         accounts.map( (account, i) => {
                             return  <div key={`account-saving-${i}`}>
-                                        <Saving account={account} />
+                                        <Saving setSaving={setSaving} account={account} />
                                     </div>
                             })
                     }

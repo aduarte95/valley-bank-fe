@@ -3,3 +3,11 @@
         padding: 64px 0;
     }
 }
+
+@media (max-width: 992px) {
+    .dashboard-container {
+        &__pages {
+            padding: 2rem 1rem;
+        }
+    }
+}

@@ -25,11 +25,11 @@ function RecentTransactions({transactionsAccount}) {
       }, [transactionsAccount]);
 
     return (
-            <div className="account-page-container">
-                <section className="d-flex flex-column justify-content-center">
+            <div className="recent-transaction-container">
+                <section className="recent-transaction-container">
                     { transactions &&
                         transactions.map( (transaction, i) => {
-                            return  <div key={`account-transaction-${i}`}>
+                            return  <div className="recent-transaction-container__transaction" key={`account-transaction-${i}`}>
                                         <AccountTransaction transactionId={transaction.id} account={account} compareDate={true} />
                                     </div>
                             })

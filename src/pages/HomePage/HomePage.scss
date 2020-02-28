@@ -1,5 +1,38 @@
-.home-container {
+.home-page-container {
     &__balance {
-        margin: 32px 0;
+    }
+
+    &__balance-number {
+       font-size: 4rem;
+    }
+
+    &__title {
+        width: max-content;
+    }
+
+    &__info {
+        display: flex;
+    }
+
+    &__list {
+        height: 300px;
+        overflow: auto;
+        margin-right: 2rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .home-page-container {
+        
+        &__info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__list {
+            height: 300px;
+            overflow: auto;
+            margin-right: 0;
+        }
     }
 }

@@ -4,9 +4,10 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { FormErrors } from '../FormErrors/FormErrors';
 import { Form } from 'react-bootstrap';
+import { useSaving}  from '../../hooks/useSaving'
 
 function Saving({account}) {
-  const [ savings, setSavings ] = useState([]);
+  const { savings, reload } = useSaving(account.id);
   const [ showAdd, setShowAdd ] = useState([]);
   const [addedAmount, setAddedAmount] = useState(0);
   const [ errors, setErrors ] = useState( 
@@ -20,18 +21,8 @@ function Saving({account}) {
 
     
   useEffect(() => {
-    console.log(savings, errors, showAdd, addedAmount, account.id)
-    const getAccountUrl = `http://localhost:8080/api/v1/account/${account.id}`;
-    
-    axios.get(getAccountUrl)
-      .then(  response => {
-        setSavings(response.data.savings);
-        
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, [ showAdd, addedAmount]);
+  
+  }, []);
 
 
   function withdrawSaving(saving, index, isWithdraw) {
@@ -62,12 +53,9 @@ function Saving({account}) {
                   saving.savingAmountAdded = addedAmount;
                 }
                 
-                console.log(saving.a)
                 axios.put(putSaving, saving)
                 .then( r => {
-                  var temp = savings;
-                  temp[index] = saving;
-                  setSavings(temp)
+                  reload()
                   
                 }) 
                 .catch( e => console.log(e));

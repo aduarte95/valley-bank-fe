@@ -39,8 +39,8 @@ function TransactionsListPage({match}) {
                                     </div>
                             })) :
                             (
-                                <div className="alert alert-success alert-dismissible fade show" role="alert">
-                                    The transaction have been completed successfully
+                                <div className="alert alert-info alert-dismissible fade show" role="alert">
+                                    There's no transactions to show
                                 </div>)
                     }
                 </section>

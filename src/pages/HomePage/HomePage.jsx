@@ -3,11 +3,15 @@ import './HomePage.scss';
 import Title from '../../component/shared/Title/Title';
 import axios from 'axios';
 import RecentTransactions from '../RecentTransactions/RecentTransactions';
+import Chart from '../../component/Chart/Chart';
+import {useSaving } from '../../hooks/useSaving';
 
 
 function HomePage() {
     const [ user, setUser] = useState([]);
+    const { savings, getSavings } = useSaving();
     const [ balance, setBalance] = useState();
+    const [ savingsBalance, setSavingsBalance] = useState(0);
     const [ accounts, setAccounts] = useState([]);
 
     useEffect(() => {
@@ -25,32 +29,62 @@ function HomePage() {
                 })
 
                 setBalance(newBalance);
+
+                getAccountSavings(response.data.accounts);
             })
             .catch(function (error) {
             console.log(error);
             });
         }, []);
+
+        function getAccountSavings(accounts) {
+            var savingCont = savingsBalance;
+            
+            if(accounts) {
+                accounts.forEach( account => {
+                    if(account.id) {
+                        axios.get(`http://localhost:8080/api/v1/account/${account.id}`)
+                          .then(  response => {
+                            
+                            if(response.data.savings) {
+                                
+                                response.data.savings.forEach( saving => {    
+                                    savingCont += saving.currentBalance});
+                                    setSavingsBalance(savingCont);
+                            }
+                          })
+                          .catch(function (error) {
+                            console.log(error);
+                          });
+                      }
+                })
+            }
+            
+        }
     
     return ( 
         <div className="home-page-container">
             <header className="favorite-page-container__header d-flex justify-content-between">
                 <Title> Welcome back, {user.givenName}! </Title>
             </header>
-            <div className="home-page-container__balance">
-                <Title > Your balance </Title>
+
+            <div className="section-border home-page-container__balance">
+                <Title className="homa-page-container__title" > Your balance </Title>
                 <p className="home-page-container__balance-number" > {balance} </p>
             </div>
 
             <Title> Recent Transactions </Title>
-            <section className="section-border d-flex flex-column justify-content-center">
-                    { accounts &&
-                    accounts.map( account => {
-                        return  <div key={`recent-transaction-${account.id}`}>
-                                    <RecentTransactions transactionsAccount={account} />
-                                </div>
-                    })}
-            </section>
-            
+            <div className="home-page-container__info">
+                <section className="home-page-container__list section-border">
+                        { accounts &&
+                        accounts.map( account => {
+                            return  <div key={`recent-transaction-${account.id}`}>
+                                        <RecentTransactions transactionsAccount={account} />
+                                    </div>
+                        })}
+                </section>
+                <Chart balance={balance} savingsBalance={savingsBalance} ></Chart>
+            </div>           
 
         </div>
     );

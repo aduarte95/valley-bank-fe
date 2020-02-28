@@ -13,9 +13,11 @@ import AddFavoritePage from '../AddFavoritePage/AddFavoritePage';
 import CreateSavingPage from '../CreateSavingPage/CreateSavingPage';
 import TransactionsListPage from '../TransactionsListPage/TransactionsListPage';
 import FavoriteAccountsPage from '../FavoriteAccountsPage/FavoriteAccountsPage';
-
+import {useSaving} from '../../hooks/useSaving';
 
 function DashboardPage({match}) {
+    const {saving, setSaving } = useSaving();
+    console.log(saving)
     return (
             <div className="dashboard-container">
                 <Sidebar>
@@ -27,11 +29,11 @@ function DashboardPage({match}) {
                             <Route path={`${match.url}/add-saving`} component={props => <CreateSavingPage {...props}/>}  />
                             <Route path={`${match.url}/add-favorite`} component={props => <AddFavoritePage {...props}/>}  />
                             <Route path={`${match.url}/new-account`} component={props => <CreateAccountPage {...props}/>}  />
-                            <Route path={`${match.url}/savings`} component={props => <SavingPage {...props}/> }/>
+                            <Route path={`${match.url}/savings`} component={props => <SavingPage {...props}  setSaving={setSaving}/> }/>
                             <Route path={`${match.url}/favorites`} component={props => <FavoritePage {...props}/> }/>
                             <Route path={`${match.url}/transactions`} component={props => <TransactionPage {...props}/>} />
                             <Route path={`${match.url}/accounts`} component={props => <AccountPage {...props}/>}  />
-                            <Route path={`${match.url}`} component={props => <HomePage {...props}/>} exact />
+                            <Route path={`${match.url}`} component={props => <HomePage {...props} saving={saving}/>} exact />
                         </div>
                     </div>
                 </Sidebar>

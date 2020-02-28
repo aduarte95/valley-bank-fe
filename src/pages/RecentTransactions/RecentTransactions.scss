@@ -1,0 +1,20 @@
+@import '../../assets/variables';
+
+.recent-transaction-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+    &__transaction {
+        flex-wrap: nowrap;
+    }
+}
+
+@media (max-width: 992px) {
+    .recent-transaction-container {
+        &__transaction {
+            border-bottom: solid 1px $terciary-color;
+            margin-bottom: 2rem;
+        }
+    }
+}
