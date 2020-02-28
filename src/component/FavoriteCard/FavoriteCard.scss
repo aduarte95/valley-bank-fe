@@ -58,3 +58,9 @@
         font-weight: 600;
     }
 }
+
+@media (max-width: 992px) {
+    .favorite-card-container {
+        margin-bottom: 1rem;
+    }
+}
