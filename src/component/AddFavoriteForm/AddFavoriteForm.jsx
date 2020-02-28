@@ -33,8 +33,8 @@ function AddFavoriteForm({favorites}) {
     });
 
     useEffect(() => {
-      
-    }, [errors]);
+     
+    }, []);
   /**
    *  Handles the submit form creating a new use
    * r on the server.
@@ -44,21 +44,23 @@ function AddFavoriteForm({favorites}) {
     const form = event.currentTarget;
     event.preventDefault();
 
-    console.log(requestBody.accountModel.accountNumber)
     if(requestBody.accountModel.accountNumber !== '') {
+    
       verifyFieldsOnServer('http://localhost:8080/api/v1/account/get-account-by-number', {accountNumber: requestBody.accountModel.accountNumber})
             .then(account => {
               
               validateField('accountNumber', account);
-
               if (allValidated() === false) {
-                event.stopPropagation();
+                event.persist();
+                
               } else {
                 if(form.checkValidity() === false) {   
-                  event.stopPropagation();
+                  event.persist();
                 } else {
+                  
                     axios.post(createFavorite, requestBody)
                         .then(  response => {
+                          
                           if(response.data === 100) {
                             setIsSuccessful(true);
                             setAddYet(false);
@@ -79,7 +81,7 @@ function AddFavoriteForm({favorites}) {
 
   function allValidated(){
     var allAreValidated = true;
-
+   
     for (var key in errors) {
       if (errors.hasOwnProperty(key)) {
         if(errors[key] !== 'formErrors') {
@@ -102,23 +104,34 @@ function AddFavoriteForm({favorites}) {
     switch(fieldName) {
       case 'accountNumber':
         if(value) {    
-          console.log('val',value)
-          if(favorites.some( fav => fav.id === value.id )) {
+          
+          if(!favorites.some( fav => fav.accountModel.id === value.id )) {
             fieldValid = true;
             fieldValidationErrors[fieldName] = '';
             requestBody.accountModel.id = value.id;
+
+            setErrors({formErrors: fieldValidationErrors,
+              [fieldName + 'Valid']: fieldValid
+            });
+            
           } else {
             fieldValid = false;
             fieldValidationErrors[fieldName] = " ";
             setAddYet(true);
+
+            setErrors({formErrors: fieldValidationErrors,
+              [fieldName + 'Valid']: fieldValid
+            });
           }
         } else {
           fieldValid = false;
           fieldValidationErrors[fieldName] = fieldName + " account number doesn't exists";
+          setErrors({formErrors: fieldValidationErrors,
+            [fieldName + 'Valid']: fieldValid
+          });
         }
-        setErrors(oldObject => ({...oldObject, formErrors: fieldValidationErrors,
-          [fieldName + 'Valid']: fieldValid
-        }));
+        
+        
       break;
 
       default:
@@ -133,13 +146,11 @@ function AddFavoriteForm({favorites}) {
     switch (name) {
       case 'accountNumber':
           if(validateNumber(value)) {
+            validateField(name, value);
             requestBody.accountModel.accountNumber = Number(value);
           } else {
             event.target.value = value.substring(0, value.length - 1);
           }
-        break;
-      case 'cellphone':
-        //TODO
         break;
     
       default:
@@ -169,9 +180,9 @@ function AddFavoriteForm({favorites}) {
   return (   
     <div>
       {addedYet && 
-        <div className="alert alert-error alert-dismissible fade show" role="alert">
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
           The favorite account have been added yet
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClose>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div> }
@@ -179,7 +190,7 @@ function AddFavoriteForm({favorites}) {
       {isSuccessful ?
         (<div className="alert alert-success alert-dismissible fade show" role="alert">
           The favorite account have been added successfully
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClose>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>) :

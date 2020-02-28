@@ -4,5 +4,5 @@ import './FormErrors.scss';
 
 export const FormErrors = ({formError}) =>
   <div className='form-errors-container'>
-    <p> {formError} </p>
+    <div> {formError} </div>
   </div>

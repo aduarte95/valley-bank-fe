@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'querystring';
 import { useIsLoggedIn } from '../../hooks/useIsLoggedIn';
+import crypto from 'crypto';
 
 const authenticateUrl = `http://localhost:8080/api/v1/user/authenticate`;
 
@@ -35,6 +36,10 @@ function LoginForm() {
       event.stopPropagation();
     } else {
       event.preventDefault();
+      requestBody.password = crypto.createHash("sha256")
+      .update(requestBody.password)
+      .digest("hex");
+
       axios.post(authenticateUrl, qs.stringify(requestBody), config)
           .then(  response => {
             

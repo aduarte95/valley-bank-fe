@@ -56,6 +56,11 @@ let addMeByCellphone = React.createRef();
       if(form.checkValidity() === false) {   
         event.stopPropagation();
       } else {
+        console.log(requestBody.password)
+        requestBody.password = crypto.createHash("sha256")
+                                      .update(requestBody.password)
+                                      .digest("hex");
+                                      console.log(requestBody.password)
       axios.post(registerUrl, requestBody)
           .then(  response => {
             if(response.data === 100) {
@@ -172,7 +177,7 @@ let addMeByCellphone = React.createRef();
   function handleChange(event) {
     var value = event.target.value;
     var name = event.target.name;
-
+    
     switch(name) {
       case 'idNumber':
         if(validateNumber(value)) {
@@ -214,13 +219,8 @@ let addMeByCellphone = React.createRef();
         validateField(name, value);
       break;
       case 'password':
-        if(validateField(name, value)) {
-          var hash = crypto.createHash("sha256")
-          .update(value)
-          .digest("hex");
-
-          requestBody[name] = hash;
-        }
+        validateField(name, value)
+          requestBody[name] = value;
         break;
       case 'email': 
         requestBody[name] = value.toLowerCase();
@@ -266,7 +266,7 @@ let addMeByCellphone = React.createRef();
           link="/login"></FormHeader>
         <Form className="sign-up-form-container__form" noValidate validated={validated} onSubmit={handleSubmit}> 
             <Form.Group controlId="formFirstName">
-                <Form.Label>*First Name</Form.Label>
+                <Form.Label>First Name</Form.Label>
                 <Form.Control 
                 required 
                 name="givenName" 
@@ -279,7 +279,7 @@ let addMeByCellphone = React.createRef();
             </Form.Group>
 
             <Form.Group controlId="formLastName">
-                <Form.Label>*Last Name</Form.Label>
+                <Form.Label>Last Name</Form.Label>
                 <Form.Control 
                 required
                 name="lastName" 
@@ -292,7 +292,7 @@ let addMeByCellphone = React.createRef();
             </Form.Group>
 
             <Form.Group controlId="formIdNumber">
-                <Form.Label>*Identity Number</Form.Label>
+                <Form.Label>Identity Number</Form.Label>
                 <Form.Control 
                 required 
                 name="idNumber"
@@ -311,7 +311,7 @@ let addMeByCellphone = React.createRef();
             </Form.Group>
 
             <Form.Group controlId="formDirection">
-                <Form.Label>*Direction</Form.Label>
+                <Form.Label>Direction</Form.Label>
                 <Form.Control 
                 required
                 name="direction" 
@@ -323,20 +323,6 @@ let addMeByCellphone = React.createRef();
                 </Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="formTelephone">
-                <Form.Label>Telephone</Form.Label>
-                <Form.Control
-                name="telephone"
-                 type="text" 
-                 placeholder="Telephone"
-                 maxLength="8" 
-                 pattern="\d{8}"
-                 onChange={handleChange}/>
-                <Form.Control.Feedback type="invalid">
-                  Please enter your telephone.
-                </Form.Control.Feedback>
-            </Form.Group>
-
             <Form.Group controlId="formCellphone">
                 <Form.Label>Cellphone</Form.Label>
                 <Form.Control
@@ -345,6 +331,7 @@ let addMeByCellphone = React.createRef();
                  placeholder="Cellphone" 
                  maxLength="8" 
                  pattern="\d{8}"
+                 required
                  onChange={handleChange}
                  className={`${errorClass(errors.formErrors.cellphone)}`}/>
                 <Form.Control.Feedback type="invalid">
@@ -353,20 +340,10 @@ let addMeByCellphone = React.createRef();
                 <div className="panel panel-default">
                   <FormErrors formError={errors.formErrors.cellphone} />
                 </div>
-            </Form.Group>
-
-            <Form.Group controlId="formCanBeAddedByCellphone">
-                <Form.Check
-                disabled
-                name="canBeAddedByCellphone"
-                 type="checkbox" 
-                 ref={addMeByCellphone}
-                 label="Let me be added by cellphone number" 
-                 onChange={handleChange}/>
-            </Form.Group>    
+            </Form.Group>  
 
             <Form.Group controlId="formEmail">
-                <Form.Label>*Email</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control 
                 required 
                 name="email"
@@ -383,7 +360,7 @@ let addMeByCellphone = React.createRef();
             </Form.Group>
 
             <Form.Group controlId="formUsername">
-                <Form.Label>*Username</Form.Label>
+                <Form.Label>Username</Form.Label>
                 <Form.Control 
                 required 
                 name="username"
@@ -400,7 +377,7 @@ let addMeByCellphone = React.createRef();
             </Form.Group>
 
             <Form.Group controlId="formPassword">
-                <Form.Label>*Password</Form.Label>
+                <Form.Label>Password</Form.Label>
                 <Form.Control 
                 required 
                 name="password"

@@ -11,7 +11,7 @@ function App() {
       <div className="app-content">
         <Switch>
           <Route path="/dashboard" component={props => <DashboardPage {...props}/>}  />
-          <Route path="/login" component={props => <LoginPage {...props}/>}  />
+          <Route path="/" component={props => <LoginPage {...props}/>}  />
         </Switch>
       </div>
     </Router>

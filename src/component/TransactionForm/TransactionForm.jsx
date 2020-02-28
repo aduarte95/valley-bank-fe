@@ -57,6 +57,7 @@ function TransactionForm({accounts, favorites}) {
             requestBody.amountAtTrans = accounts[0].balance;
           }
 
+
           console.log(requestBody)
           axios.post(createTransaction, requestBody)
               .then(  response => {

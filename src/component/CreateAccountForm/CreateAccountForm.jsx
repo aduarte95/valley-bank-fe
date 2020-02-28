@@ -9,7 +9,7 @@ const requestBody = {
     userModel: {
       id: sessionStorage.getItem('user')
     },
-    balance: 0,
+    balance: 10000,
     accountType: 0,
     transactionLimit: 0,
     initialAmount:0,
@@ -38,6 +38,7 @@ function CreateAccountForm({history}) {
     if(form.checkValidity() === false) {   
       event.stopPropagation();
     } else {
+      console.log(requestBody)
         axios.post(createTransaction, requestBody)
             .then(  response => {
               if(response.data === 100) {
@@ -131,8 +132,8 @@ function CreateAccountForm({history}) {
                 as="select"
                 name="currency"
                 onChange={handleChange}>
-                  <option className="create-account-form-container__option" value="0"> Dollares </option>
-                  <option value="1"> Colones </option>
+                  <option className="create-account-form-container__option" value="0"> Colones </option>
+                  <option value="1"> Dollars </option>
               </Form.Control>
             </Form.Group>
 
