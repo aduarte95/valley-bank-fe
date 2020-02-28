@@ -126,19 +126,6 @@ function CreateAccountForm({history}) {
               onChange={handleChange}/>
             </Form.Group>
 
-            <Form.Group controlId="newAccountcurrencySelect">
-              <Form.Label className="bold">Currency</Form.Label>
-              <Form.Control
-                required
-                as="select"
-                name="currency"
-                onChange={handleChange}>
-                  <option className="create-account-form-container__option" value="0"> Colones </option>
-                  <option value="1"> Dollars </option>
-              </Form.Control>
-            </Form.Group>
-
-
             {/* <Form.Group controlId="formTransactionLimit">
               <Form.Label>Transaction Limit</Form.Label>
               <Form.Control 

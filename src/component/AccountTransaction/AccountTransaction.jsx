@@ -5,13 +5,7 @@ import dayjs from 'dayjs';
 
 function AccountTransaction({transactionId, account, compareDate}) {
   const [ transaction, setTransaction ] = useState();
-  var currency;
-
-  if(account.currencyId === 0) {
-    currency = '₡';
-  } else {
-    currency = '$'
-  }
+  var currency = '$';
 
     useEffect(() => {
         const getTransaction = `http://localhost:8080/api/v1/transaction/${transactionId}`;

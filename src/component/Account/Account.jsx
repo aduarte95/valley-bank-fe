@@ -3,15 +3,9 @@ import './Account.scss';
 import { Link } from 'react-router-dom';
 
 function Account({account}) {
-  var currency;
+  var currency = '$';
   var accountNumber = String(account.accountNumber).padStart(17, '0')
 
-  if(account.currencyId === 0) {
-    currency = '₡';
-  } else {
-    currency = '$'
-  }
-  
   return ( 
       <div className="account-container row">
           <div className="account-container__info col"> 

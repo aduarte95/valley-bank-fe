@@ -69,7 +69,7 @@ function HomePage() {
 
             <div className="section-border home-page-container__balance">
                 <Title className="homa-page-container__title" > Your balance </Title>
-                <p className="home-page-container__balance-number" > {balance} </p>
+                <p className="home-page-container__balance-number" > ${balance} </p>
             </div>
 
             <Title> Recent Transactions </Title>

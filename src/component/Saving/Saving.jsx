@@ -119,7 +119,7 @@ function Saving({account}) {
                             Balance
                             </h3> 
                             <p className={(saving.currentBalance === 0 ? 'red' : '') + ' saving-container__content'}>
-                              {saving.currentBalance}
+                              ${saving.currentBalance}
                             </p>
                           </div>
 
