@@ -38,7 +38,8 @@ function CreateAccountForm({history}) {
     if(form.checkValidity() === false) {   
       event.stopPropagation();
     } else {
-      console.log(requestBody)
+      console.log(requestBody);
+      requestBody.userModel.id = sessionStorage.getItem('user')
         axios.post(createTransaction, requestBody)
             .then(  response => {
               if(response.data === 100) {

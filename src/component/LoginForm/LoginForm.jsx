@@ -7,16 +7,12 @@ import axios from 'axios';
 import qs from 'querystring';
 import { useIsLoggedIn } from '../../hooks/useIsLoggedIn';
 import crypto from 'crypto';
+import logo from '../../assets/logo.PNG';
+
 
 const authenticateUrl = `http://localhost:8080/api/v1/user/authenticate`;
 
-const username = localStorage.getItem('username');
-const requestBody = {
-  username: username,
-  password: ''
-}
 
-var rememberMe = true;
 
 const config = {
   headers: {
@@ -28,6 +24,13 @@ function LoginForm() {
   const [ validated, setValidated ] = useState(false);
   const [ failedLogin, setFailedLogin ] = useState(false);
   const { isLoggedIn, setIsLoggedIn } = useIsLoggedIn();
+  const [rememberMe, setRememberMe] = useState(true);
+
+  const username = localStorage.getItem('username');
+  const requestBody = {
+    username: username,
+    password: ''
+  }
 
   function handleSubmit(event) {
     const form = event.currentTarget;
@@ -76,15 +79,13 @@ function LoginForm() {
         requestBody.password = event.target.value;
       break;
       case 'rememberMe':
-        if(event.target.value !== "") {
-          rememberMe = true;
-        } else {
-          rememberMe = false;
-        }
+          setRememberMe(!rememberMe);
+        
       break;
       default:
         break;
     }
+
   }
 
   function errorClass() {
@@ -95,7 +96,10 @@ function LoginForm() {
   return (   
     <div className="login-form-container">
       {isLoggedIn && <Redirect to="/dashboard"></Redirect>}
-      <FormHeader title="Welcome back!" information="New to Bankito?" linkLegend="Sign Up" link="/login/sign-up"></FormHeader>
+      <div className="form-header">
+        <img className="form-header__img" src={logo} alt="logo" width={55}/> 
+        <FormHeader title="Welcome back!" information="New to Valley Bank?" linkLegend="Sign Up" link="/sign-up"></FormHeader>
+      </div>
       {failedLogin &&
         <div className="alert alert-danger alert-dismissible fade show" role="alert">
           Your username or password is incorrect. Please try again.
@@ -141,7 +145,7 @@ function LoginForm() {
               name="rememberMe"
               label="Remember username" 
               onChange={handleChange}
-              checked/>
+              checked={rememberMe}/>
           </Form.Group>          
           <button className="login-form-container__button login-form-container__button--icon-effect btn btn-primary " type="submit">
               Login

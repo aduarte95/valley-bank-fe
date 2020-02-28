@@ -7,6 +7,10 @@
     }
 
     &__link {
-        color: $secondary-color;
+        color: $terciary-color;
+
+        &:hover {
+            color: $primary-color;
+        }
     }
 }

@@ -5,10 +5,12 @@
     height: 100%;
     padding: 1.5rem;
     overflow: auto;
+    background-color: white;
 
     &__wrapper {
         max-width: 500px;
         height: fit-content;
+        margin: 32px 0;
     }
 }
 

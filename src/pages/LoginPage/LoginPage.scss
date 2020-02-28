@@ -2,6 +2,7 @@
     height: 100vh;
     padding: 0;
     margin:0;
+    background-color: white !important;
 
     &__row {
         height: 100%;
@@ -26,10 +27,12 @@
 
 @media (max-width: 992px) {
     .login-container {
+        background-color: white !important;
         max-height: 100vh;
         &__row {
             flex-direction: column-reverse;
             justify-content: flex-end;
+            background-color: white !important;
         }
     
         &__img {
@@ -38,6 +41,7 @@
     
         &__img-col, &__form-col {
             width: 100%;
+            background-color: white !important;
         }
     }
 }

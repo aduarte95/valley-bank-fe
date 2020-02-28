@@ -7,6 +7,15 @@
     display: flex;
     justify-content: space-between;
 
+    &__brand {
+        display: flex;
+        align-items: center;
+    }
+
+    &__name {
+        margin-left: .2rem;
+    }
+
     &__link {
         color: $terciary-color;
         border: none;

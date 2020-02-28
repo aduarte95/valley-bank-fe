@@ -130,3 +130,13 @@ html, body {
   align-items: center;
 }
 
+.form-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__img {
+    margin-bottom: .7rem;
+  }
+}
+

@@ -184,7 +184,7 @@ function TransactionForm({accounts, favorites}) {
                   className="transaction-form-container__select">
                   { favorites &&
                       favorites.map( (favorite, i) => {
-                        return <option value={i} key={`destiny-account-${i}`}> {favorite.name} {String(favorite.accountModel.accountNumber).padStart(17, '0')} </option>
+                        return <option value={i} key={`destiny-account-${i}`}> {favorite.name} - {String(favorite.accountModel.accountNumber).padStart(17, '0')} </option>
                       })
                   }
                 </Form.Control>

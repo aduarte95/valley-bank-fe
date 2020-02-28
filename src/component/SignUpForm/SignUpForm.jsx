@@ -6,6 +6,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import crypto from 'crypto';
 import { FormErrors } from '../FormErrors/FormErrors';
+import { useEffect } from 'react';
 
 const registerUrl = 'http://localhost:8080/api/v1/user/register';
 
@@ -39,9 +40,10 @@ const [ errors, setErrors ] = useState(
     idNumberValid: false,
     cellphoneValid: false
   });
+  
+  useEffect(() => {
 
-let addMeByCellphone = React.createRef();
-
+  }, [])
   /**
    *  Handles the submit form creating a new user on the server.
    * @param {*} event 
@@ -56,7 +58,7 @@ let addMeByCellphone = React.createRef();
       if(form.checkValidity() === false) {   
         event.stopPropagation();
       } else {
-        console.log(requestBody.password)
+        
         requestBody.password = crypto.createHash("sha256")
                                       .update(requestBody.password)
                                       .digest("hex");
@@ -197,12 +199,7 @@ let addMeByCellphone = React.createRef();
       case 'cellphone':
         if(validateNumber(value)) {
           requestBody.cellphone = value;
-
-          if(value !== "" && validateField(name, value)) {
-            addMeByCellphone.current.disabled = false;
-          } else {
-            addMeByCellphone.current.disabled = true;
-          }
+          validateField(name, value);
         } else {
           event.target.value = value.substring(0, value.length - 1);
         }
@@ -256,14 +253,16 @@ let addMeByCellphone = React.createRef();
     <div className="sign-up-form-container d-flex justify-content-center">
       {isRegistered && 
         <Redirect 
-          to='/login'>
+          to='/'>
           </Redirect>}
       <div className="sign-up-form-container__wrapper">
+      <div className="form-header">
         <FormHeader 
-          title="Open up your Bankito account now"
+          title="Open up your Valley Bank account now"
           information="Already signed up?"
           linkLegend="Log in"
-          link="/login"></FormHeader>
+          link="/"></FormHeader>
+      </div>
         <Form className="sign-up-form-container__form" noValidate validated={validated} onSubmit={handleSubmit}> 
             <Form.Group controlId="formFirstName">
                 <Form.Label>First Name</Form.Label>
