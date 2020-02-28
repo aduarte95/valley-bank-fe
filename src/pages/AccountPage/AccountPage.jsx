@@ -31,12 +31,15 @@ function AccountPage() {
                 </header>
                 
                 <section className="section-border d-flex flex-column justify-content-center">
-                    { accounts &&
+                    { accounts && accounts.length !== 0 ?
                         accounts.map( (account, i) => {
                             return  <div className="account-page-container__account" key={`account-${i}`}>
                                         <Account account={account} />
                                     </div>
-                            })
+                            }) :
+                            <div className="alert alert-info" role="alert">
+                                You don't have any accounts
+                            </div>
                     }
                 </section>
             </div>

@@ -29,7 +29,14 @@ function FavoritePage() {
         </header>
         
         <section className="d-flex flex-column justify-content-center">
-            <Favorites favorites={favorites}></Favorites>
+            {favorites.length !== 0 ?
+              <Favorites favorites={favorites}></Favorites> :
+              <div className="section-border">
+                <div className="alert alert-info" role="alert">
+                    You don't have favorite accounts
+                </div>
+              </div>
+            }
         </section>
     </div>
   );

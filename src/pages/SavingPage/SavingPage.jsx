@@ -30,12 +30,15 @@ function SavingPage({setSaving}) {
                 </header>
                 
                 <section className="section-border d-flex flex-column justify-content-center">
-                    { accounts &&
+                    { accounts && accounts.length !== 0 ?
                         accounts.map( (account, i) => {
                             return  <div className="saving-page-container__saving" key={`account-saving-${i}`}>
                                         <Saving setSaving={setSaving} account={account} />
                                     </div>
-                            })
+                            }) :  
+                        <div className="alert alert-info" role="alert">
+                            You don't have any savings
+                        </div>
                     }
                 </section>
             </div>

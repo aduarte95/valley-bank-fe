@@ -26,8 +26,8 @@ function RecentTransactions({transactionsAccount}) {
     return (
             <div className="recent-transaction-container">
                 <section className="recent-transaction-container">
-                    { transactions &&
-                        transactions.map( (transaction, i) => {
+                    { transactions && 
+                             transactions.map( (transaction, i) => {
                             return  <div className="recent-transaction-container__transaction" key={`account-transaction-${i}`}>
                                         <AccountTransaction transactionId={transaction.id} account={account} compareDate={true} />
                                     </div>

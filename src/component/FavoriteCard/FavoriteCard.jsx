@@ -15,7 +15,7 @@ function FavoriteCard({favorite}) {
               <h2 className="favorite-card-container__name card-title"> {favorite.name} </h2>
             </div>
                 
-            <h2 className="favorite-card-container__account"> {favorite.accountModel.accountNumber} </h2>
+            <h2 className="favorite-card-container__account"> {String(favorite.accountModel.accountNumber).padStart(17, '0')} </h2>
             
           </div>
         </div>

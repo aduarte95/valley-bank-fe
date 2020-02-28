@@ -75,12 +75,15 @@ function HomePage() {
             <Title> Recent Transactions </Title>
             <div className="home-page-container__info">
                 <section className="home-page-container__list section-border">
-                        { accounts &&
+                        { accounts && accounts.length !== 0 ?
                         accounts.map( account => {
                             return  <div key={`recent-transaction-${account.id}`}>
                                         <RecentTransactions transactionsAccount={account} />
                                     </div>
-                        })}
+                        }) : 
+                        <div className="alert alert-info" role="alert">
+                            You don't have recent transactions
+                        </div>}
                 </section>
                 <Chart balance={balance} savingsBalance={savingsBalance} ></Chart>
             </div>           

@@ -42,6 +42,7 @@ function LoginForm() {
       requestBody.password = crypto.createHash("sha256")
       .update(requestBody.password)
       .digest("hex");
+      console.log(requestBody.password)
 
       axios.post(authenticateUrl, qs.stringify(requestBody), config)
           .then(  response => {

@@ -51,11 +51,11 @@ function AddFavoriteForm({favorites}) {
               
               validateField('accountNumber', account);
               if (allValidated() === false) {
-                event.persist();
+                event.stopPropagation()
                 
               } else {
                 if(form.checkValidity() === false) {   
-                  event.persist();
+                  event.stopPropagation()
                 } else {
                   
                     axios.post(createFavorite, requestBody)
@@ -162,6 +162,7 @@ function AddFavoriteForm({favorites}) {
   function verifyFieldsOnServer(url, field) {
     return axios.get(url, {params: field})
           .then(  response => {
+            console.log(field, response)
             return response.data 
           })
           .catch(function (error) {
@@ -190,9 +191,6 @@ function AddFavoriteForm({favorites}) {
       {isSuccessful ?
         (<div className="alert alert-success alert-dismissible fade show" role="alert">
           The favorite account have been added successfully
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
         </div>) :
        
         (<div className="create-account-form-container__wrapper">

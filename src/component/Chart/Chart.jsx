@@ -26,23 +26,26 @@ function Chart({savingsBalance, balance}) {
 		return (
         <div className="chart-container">
             <div className="chart-container__chart--border chart-container__chart">
-        
-            <Doughnut width={250} height={250} data={data} 
-            options={
-                { 
-                    maintainAspectRatio: false, 
-                    legend: {
-                        display: true,
-                        labels: {
-                            fontColor: 'rgb(0, 0, 0)'
-                        }
-                    },
-                    pieceLabel: {
-                        render: 'value',
-                        fontColor: '#fff',
-                    }                     
-                }
-                }/>
+            {balance !== 0 ?
+                 <Doughnut width={250} height={250} data={data} 
+                options={
+                    { 
+                        maintainAspectRatio: false, 
+                        legend: {
+                            display: true,
+                            labels: {
+                                fontColor: 'rgb(0, 0, 0)'
+                            }
+                        },
+                        pieceLabel: {
+                            render: 'value',
+                            fontColor: '#fff',
+                        }                     
+                    }
+                    }/> :
+                 <div className="alert alert-info" role="alert">
+                    You don't any savings
+                </div>}
             </div>
 		</div>
 		);

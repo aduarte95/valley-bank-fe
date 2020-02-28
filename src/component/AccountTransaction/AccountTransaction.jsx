@@ -67,7 +67,7 @@ function AccountTransaction({transactionId, account, compareDate}) {
                 Destiny Account
               </h3> 
               <p className="account-container__content">
-                {transaction.destinyAccount && transaction.destinyAccount.name + '-' + String(transaction.destinyAccount.accountNumber).padStart(17, '0')}
+                {transaction.destinyAccount && transaction.destinyAccount.name} - {String(transaction.destinyAccount.accountNumber).padStart(17, '0')}
               </p>
             </div>
 
@@ -79,17 +79,15 @@ function AccountTransaction({transactionId, account, compareDate}) {
                 {currency}{transaction.amount}
               </p>
             </div>
-
             
-
-            {/* <div className="account-container__info col"> 
+            <div className="account-container__info col"> 
               <h3 className="account-container__title">
-                Amount at transfer
+                Description
               </h3> 
               <p className="account-container__content">
-                {transaction.amountAtTrans}
+                {transaction.description}
               </p>
-            </div>    */}
+            </div>
       </div>
       }
     </div>

@@ -3,6 +3,7 @@ import './CreateSavingForm.scss';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { FormErrors } from '../FormErrors/FormErrors';
+import { Redirect } from 'react-router-dom';
 
 
 const createSaving = 'http://localhost:8080/api/v1/saving';
@@ -116,6 +117,7 @@ function CreateSavingForm({accounts}) {
       case 'amount':
         if(validateNumber(value)) {
           requestBody.amount = Number(value);
+          requestBody.currentBalance = Number(value);
           validateField(name, value)
         } else {
           event.target.value = value.substring(0, value.length - 1);
@@ -146,7 +148,10 @@ function CreateSavingForm({accounts}) {
       {isSuccessful ?
         (<div className="alert alert-success alert-dismissible fade show" role="alert">
           The account have been created successfully
-          <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClose>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close" 
+          onClose={(()=> {
+            return <Redirect to="/dashboard/accounts"></Redirect>
+          })}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>) :
