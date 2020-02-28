@@ -25,7 +25,7 @@ function AccountPage() {
           
     return (
             <div className="account-page-container">
-                <header className="account-page-container__header d-flex justify-content-between">
+                <header className="account-page-container__header">
                     <Title> My Accounts </Title>
                     <Link to={'new-account'} className="btn btn-outline-primary">Open new account</Link>
                 </header>
@@ -33,7 +33,7 @@ function AccountPage() {
                 <section className="section-border d-flex flex-column justify-content-center">
                     { accounts &&
                         accounts.map( (account, i) => {
-                            return  <div key={`account-${i}`}>
+                            return  <div className="account-page-container__account" key={`account-${i}`}>
                                         <Account account={account} />
                                     </div>
                             })

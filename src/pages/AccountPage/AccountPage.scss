@@ -1,0 +1,19 @@
+@import '../../assets/variables';
+
+.account-page-container__header {
+    display: flex;
+    justify-content: between
+}
+
+@media (max-width: 992px) {
+    .account-page-container {
+        &__header {
+            flex-direction: column;
+        }
+
+        &__account {
+            border-bottom: solid 1px $terciary-color;
+            margin-bottom: 2rem;
+        }
+    }
+}
