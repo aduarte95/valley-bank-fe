@@ -4,12 +4,10 @@ import Title from '../../component/shared/Title/Title';
 import axios from 'axios';
 import RecentTransactions from '../RecentTransactions/RecentTransactions';
 import Chart from '../../component/Chart/Chart';
-import {useSaving } from '../../hooks/useSaving';
 
 
 function HomePage() {
     const [ user, setUser] = useState([]);
-    const { savings, getSavings } = useSaving();
     const [ balance, setBalance] = useState();
     const [ savingsBalance, setSavingsBalance] = useState(0);
     const [ accounts, setAccounts] = useState([]);
@@ -35,9 +33,10 @@ function HomePage() {
             .catch(function (error) {
             console.log(error);
             });
+            // eslint-disable-next-line
         }, []);
 
-        function getAccountSavings(accounts) {
+        function  getAccountSavings(accounts) {
             var savingCont = savingsBalance;
             
             if(accounts) {

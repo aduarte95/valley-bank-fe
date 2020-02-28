@@ -19,7 +19,7 @@ const requestBody = {
     name: 'Account'
 }
 
-function CreateAccountForm({accounts, favorites}) {
+function CreateAccountForm({history}) {
   const [validated, setValidated] = useState(false);
   const [ isSuccessful, setIsSuccessful ] = useState(false);
   const [ errors, setErrors ] = useState( 
@@ -38,8 +38,6 @@ function CreateAccountForm({accounts, favorites}) {
     if(form.checkValidity() === false) {   
       event.stopPropagation();
     } else {
-      
-      console.log(requestBody)
         axios.post(createTransaction, requestBody)
             .then(  response => {
               if(response.data === 100) {
@@ -104,9 +102,12 @@ function CreateAccountForm({accounts, favorites}) {
   return (   
     <div>
       {isSuccessful ?
-        (<div class="alert alert-success alert-dismissible fade show" role="alert">
+        (<div className="alert alert-success alert-dismissible fade show" role="alert">
           The account have been created successfully
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close" onClose>
+          <button type="button" className="close" data-dismiss="alert" aria-label="Close"
+          onClick={() => {
+            return history.push('/dashboard/accounts')
+          }}>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>) :

@@ -3,8 +3,36 @@
 .navbar-container {
     height: $navbar-height;
     border-bottom: $border;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+
     &__link {
-        color: $icon-color;
+        color: $terciary-color;
+        border: none;
+        background: transparent;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            color:$primary-color;
+        }
+    }
+
+    &__logout {
+        font-size: 1.1rem;
+    }
+}
+
+
+@media (max-width: 992px) {
+    .navbar-container {
+        font-size: 1.25rem;
+    
+        &__logout {
+            display: none;
+        }
     }
 }

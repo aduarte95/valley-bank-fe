@@ -2,7 +2,7 @@
 
 .account-page-container__header {
     display: flex;
-    justify-content: between
+    justify-content: space-between;
 }
 
 @media (max-width: 992px) {

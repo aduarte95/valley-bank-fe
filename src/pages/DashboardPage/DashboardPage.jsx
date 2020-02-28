@@ -15,14 +15,18 @@ import TransactionsListPage from '../TransactionsListPage/TransactionsListPage';
 import FavoriteAccountsPage from '../FavoriteAccountsPage/FavoriteAccountsPage';
 import {useSaving} from '../../hooks/useSaving';
 
-function DashboardPage({match}) {
+function DashboardPage({match, history}) {
     const {saving, setSaving } = useSaving();
-    console.log(saving)
+
+    if(!sessionStorage.getItem('token')) {
+        history.push('/login')
+    }
+
     return (
             <div className="dashboard-container">
                 <Sidebar>
                     <div className="dashboard-container__wrapper">
-                        <Navbar></Navbar>
+                        <Navbar history={history}></Navbar>
                         <div className="container dashboard-container__pages">
                             <Route path={`${match.url}/:id/accounts`} component={props => <FavoriteAccountsPage {...props}/>}  />
                             <Route path={`${match.url}/:id/transactions`} component={props => <TransactionsListPage {...props}/>}  />

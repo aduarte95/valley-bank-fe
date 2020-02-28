@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './LoginForm.scss';
-import { Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import FormHeader from '../shared/FormHeader/FormHeader';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import qs from 'querystring';
 import { useIsLoggedIn } from '../../hooks/useIsLoggedIn';
@@ -39,10 +39,10 @@ function LoginForm() {
           .then(  response => {
             
             if(response.data !== 101) {
-              setIsLoggedIn(true);
-              setFailedLogin(false);
               sessionStorage.setItem('token', response.data.token);
               sessionStorage.setItem('user', response.data.id);
+              setIsLoggedIn(true);
+              setFailedLogin(false);
               
               if(rememberMe) {
                 localStorage.setItem('username', response.data.username);
@@ -99,6 +99,7 @@ function LoginForm() {
           </button>
         </div>
       }
+      
       <Form  noValidate validated={validated} onSubmit={handleSubmit}> 
           <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
@@ -137,11 +138,9 @@ function LoginForm() {
               onChange={handleChange}
               checked/>
           </Form.Group>          
-          <Button className="login-form-container__button login-form-container__button--icon-effect btn-primary" type="submit">
+          <button className="login-form-container__button login-form-container__button--icon-effect btn btn-primary " type="submit">
               Login
-          </Button>
-
-          <Link className="login-form-container__forgot d-flex justify-content-end" to="/" >Forgot password?</Link>
+          </button>
       </Form>
     </div>
   );

@@ -7,7 +7,6 @@ import FavoriteAccount from '../../component/FavoriteAccount/FavoriteAccount';
 
 function FavoriteAccountsPage({match}) {
     const [ favoriteAccounts, setFavoriteAccounts ] = useState([]);
-    const [ user, setUser ] = useState([]);
 
     useEffect(() => {    
         var userId = sessionStorage.getItem('user');
@@ -17,7 +16,6 @@ function FavoriteAccountsPage({match}) {
 
         axios.get(getUserUrl)
           .then(  response => {
-                setUser(response.data.favorites);
                 
                 setFavoriteAccounts([response.data.favorites.find( fav => fav.id === Number(match.params.id))]);
           })
@@ -29,7 +27,7 @@ function FavoriteAccountsPage({match}) {
     return (
             <div className="account-page-container">
                 <header className="account-page-container__header d-flex justify-content-between">
-                    <Title> {user.givenName} asociated accounts </Title>
+                    <Title> Asociated accounts </Title>
                 </header>
                 
                 <section className="section-border d-flex flex-column justify-content-center">

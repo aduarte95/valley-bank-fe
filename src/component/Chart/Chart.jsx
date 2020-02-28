@@ -4,7 +4,6 @@ import 'chart.piecelabel.js';
 import './Chart.scss';
 
 function Chart({savingsBalance, balance}) {
-    console.log('saving', savingsBalance, balance)
     const data = {
         labels: [
             'My savings',

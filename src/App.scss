@@ -83,9 +83,12 @@ html, body {
     color: white;
     text-transform: capitalize;
 
+    &:focus,
+    &:active,
     &:hover {
-        background-color: $primary-color;
-        border-color: $primary-color;
+        background-color: $primary-color !important;
+        border-color: $primary-color !important;
+        box-shadow:  0 0 0 0.2rem rgba(170, 49, 80, 0.5)!important;
     }
 }
 
