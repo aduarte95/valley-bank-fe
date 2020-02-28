@@ -1,6 +1,5 @@
 import React from 'react';
 import './RecentTransactions.scss';
-import Title from '../../component/shared/Title/Title';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import AccountTransaction from '../../component/AccountTransaction/AccountTransaction';

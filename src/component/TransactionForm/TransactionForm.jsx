@@ -155,7 +155,7 @@ function TransactionForm({accounts, favorites}) {
           <Form className="transaction-form-container__form" noValidate validated={validated} onSubmit={handleSubmit}> 
             <Form.Group controlId="accountModelSelect">
               <Form.Label className="bold">Origin Account</Form.Label>
-              <div className="d-flex">
+              <div className="transaction-form-container__accounts">
                 <Form.Control
                   required
                   as="select"
@@ -174,7 +174,7 @@ function TransactionForm({accounts, favorites}) {
 
             <Form.Group controlId="destinyAccountSelect">
               <Form.Label>Destiny Account</Form.Label>
-              <div className="d-flex">
+              <div className="transaction-form-container__accounts">
                 <Form.Control 
                   required 
                   as="select"
