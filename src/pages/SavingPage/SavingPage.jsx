@@ -24,7 +24,7 @@ function SavingPage({setSaving}) {
           
     return (
             <div className="saving-page-container">
-                <header className="saving-page-container__header d-flex justify-content-between">
+                <header className="saving-page-container__header">
                     <Title> My savings </Title>
                     <Link to={'add-saving'} className="btn btn-outline-primary">Create new saving</Link>
                 </header>
@@ -32,7 +32,7 @@ function SavingPage({setSaving}) {
                 <section className="section-border d-flex flex-column justify-content-center">
                     { accounts &&
                         accounts.map( (account, i) => {
-                            return  <div key={`account-saving-${i}`}>
+                            return  <div className="saving-page-container__saving" key={`account-saving-${i}`}>
                                         <Saving setSaving={setSaving} account={account} />
                                     </div>
                             })

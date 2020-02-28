@@ -71,6 +71,15 @@
     }
 }
 
+@media (max-width: 992px) {
+    .saving-container {
+        &__savings {
+            border-bottom: solid 1px $terciary-color;
+            margin-bottom: 2rem;
+        }
+    }
+}
+
 .red {
     color:red
 }
