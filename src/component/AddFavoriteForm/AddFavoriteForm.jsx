@@ -57,6 +57,7 @@ function AddFavoriteForm({favorites}) {
                 if(form.checkValidity() === false) {   
                   event.stopPropagation()
                 } else {
+                    requestBody.userModel.id = sessionStorage.getItem('user');
                   
                     axios.post(createFavorite, requestBody)
                         .then(  response => {
