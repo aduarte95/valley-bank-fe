@@ -11,7 +11,7 @@ function FavoriteAccountsPage({match}) {
     useEffect(() => {    
         var userId = sessionStorage.getItem('user');
 
-        const getUserUrl = `http://localhost:8080/api/v1/user/${userId}`;
+        const getUserUrl = `https://valley-bank-be.herokuapp.com/api/v1/user/${userId}`;
         
 
         axios.get(getUserUrl)

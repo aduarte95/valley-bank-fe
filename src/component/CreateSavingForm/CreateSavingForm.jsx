@@ -6,7 +6,7 @@ import { FormErrors } from '../FormErrors/FormErrors';
 import { Redirect } from 'react-router-dom';
 
 
-const createSaving = 'http://localhost:8080/api/v1/saving';
+const createSaving = 'https://valley-bank-be.herokuapp.com/api/v1/saving';
 
 const requestBody = {
     accountModel: {

@@ -8,7 +8,7 @@ import crypto from 'crypto';
 import { FormErrors } from '../FormErrors/FormErrors';
 import { useEffect } from 'react';
 
-const registerUrl = 'http://localhost:8080/api/v1/user/register';
+const registerUrl = 'https://valley-bank-be.herokuapp.com/api/v1/user/register';
 
 const requestBody = {
   givenName: '',
@@ -122,7 +122,7 @@ const [ errors, setErrors ] = useState(
         break;
 
       case 'username': 
-        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-username', {username: value})
+        verifyFieldsOnServer('https://valley-bank-be.herokuapp.com/api/v1/user/verify-username', {username: value})
           .then(exists => {
             fieldValid = !exists;
             fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';
@@ -133,7 +133,7 @@ const [ errors, setErrors ] = useState(
         break;
       
       case 'idNumber':
-        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-id-number', {idNumber: value})
+        verifyFieldsOnServer('https://valley-bank-be.herokuapp.com/api/v1/user/verify-id-number', {idNumber: value})
           .then(exists => {
             fieldValid = !exists;
             fieldValidationErrors[fieldName] = fieldValid ? '' : 'Identification number already exists';
@@ -144,7 +144,7 @@ const [ errors, setErrors ] = useState(
       break;
 
       case 'email':
-        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-email', {email: value})
+        verifyFieldsOnServer('https://valley-bank-be.herokuapp.com/api/v1/user/verify-email', {email: value})
           .then(exists => {
             fieldValid = !exists;
             fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';
@@ -155,7 +155,7 @@ const [ errors, setErrors ] = useState(
       break;
 
       case 'cellphone':
-        verifyFieldsOnServer('http://localhost:8080/api/v1/user/verify-cellphone', {cellphone: value})
+        verifyFieldsOnServer('https://valley-bank-be.herokuapp.com/api/v1/user/verify-cellphone', {cellphone: value})
           .then(exists => {
             fieldValid = !exists;
             fieldValidationErrors[fieldName] = fieldValid ? '' : fieldName + ' already exists';

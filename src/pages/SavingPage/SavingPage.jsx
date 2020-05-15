@@ -11,7 +11,7 @@ function SavingPage({setSaving}) {
 
     useEffect(() => {
         var userId = sessionStorage.getItem('user');
-        const getAccountsUrl = `http://localhost:8080/api/v1/user/${userId}`;
+        const getAccountsUrl = `https://valley-bank-be.herokuapp.com/api/v1/user/${userId}`;
 
         axios.get(getAccountsUrl)
           .then(  response => {

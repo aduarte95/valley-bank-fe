@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { FormErrors } from '../FormErrors/FormErrors';
 
-const createTransaction = 'http://localhost:8080/api/v1/transaction';
+const createTransaction = 'https://valley-bank-be.herokuapp.com/api/v1/transaction';
 
 const requestBody = {
   accountModel: {

@@ -8,7 +8,7 @@ function AccountTransaction({transactionId, account, compareDate}) {
   var currency = '$';
 
     useEffect(() => {
-        const getTransaction = `http://localhost:8080/api/v1/transaction/${transactionId}`;
+        const getTransaction = `https://valley-bank-be.herokuapp.com/api/v1/transaction/${transactionId}`;
 
         axios.get(getTransaction)
           .then(  response => {

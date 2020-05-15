@@ -29,9 +29,9 @@ function Saving({account}) {
     validateField('amount', saving.id)
     
     if(errors['amountValid' + saving.id]) {
-      const getAccount = `http://localhost:8080/api/v1/account/${saving.accountModel.id}`;
-      const putAccount = `http://localhost:8080/api/v1/account`;
-      const putSaving = `http://localhost:8080/api/v1/saving`
+      const getAccount = `https://valley-bank-be.herokuapp.com/api/v1/account/${saving.accountModel.id}`;
+      const putAccount = `https://valley-bank-be.herokuapp.com/api/v1/account`;
+      const putSaving = `https://valley-bank-be.herokuapp.com/api/v1/saving`
 
       axios.get(getAccount)
         .then(  response => {

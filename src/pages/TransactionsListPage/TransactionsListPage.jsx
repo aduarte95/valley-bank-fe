@@ -11,7 +11,7 @@ function TransactionsListPage({match}) {
 
 
     useEffect(() => {
-        const getAccountTransactionsUrl = `http://localhost:8080/api/v1/account/${match.params.id}`;
+        const getAccountTransactionsUrl = `https://valley-bank-be.herokuapp.com/api/v1/account/${match.params.id}`;
 
         axios.get(getAccountTransactionsUrl)
           .then(  response => {

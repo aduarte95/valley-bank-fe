@@ -10,7 +10,7 @@ import crypto from 'crypto';
 import logo from '../../assets/logo.PNG';
 
 
-const authenticateUrl = `http://localhost:8080/api/v1/user/authenticate`;
+const authenticateUrl = `https://valley-bank-be.herokuapp.com/api/v1/user/authenticate`;
 
 
 

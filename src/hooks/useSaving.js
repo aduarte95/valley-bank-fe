@@ -7,7 +7,7 @@ import axios from 'axios';
 export const useSaving = (accountId) => {
     const [ savings, setSavings ] = useState([]);
     const [reload, setReload] = useState(false)
-    const getAccountUrl = `http://localhost:8080/api/v1/account/${accountId}`;
+    const getAccountUrl = `https://valley-bank-be.herokuapp.com/api/v1/account/${accountId}`;
   
   useEffect(() => {
     if(accountId) {
@@ -33,7 +33,7 @@ export const useSaving = (accountId) => {
   function getSavings(accountId) {
     
     if(accountId) {
-      axios.get(`http://localhost:8080/api/v1/account/${accountId}`)
+      axios.get(`https://valley-bank-be.herokuapp.com/api/v1/account/${accountId}`)
         .then(  response => {
           setSavings(response.data.savings);
         })

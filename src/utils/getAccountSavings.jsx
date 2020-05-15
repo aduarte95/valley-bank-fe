@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 
 export const getAccountSavings = (accountId) => {
-    const getAccountUrl = `http://localhost:8080/api/v1/account/${accountId}`;
+    const getAccountUrl = `https://valley-bank-be.herokuapp.com/api/v1/account/${accountId}`;
     const [ savings, setSavings] = useState([]);
 
     axios.get(getAccountUrl)

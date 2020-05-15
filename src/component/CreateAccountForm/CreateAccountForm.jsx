@@ -3,7 +3,7 @@ import './CreateAccountForm.scss';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 
-const createTransaction = 'http://localhost:8080/api/v1/account';
+const createTransaction = 'https://valley-bank-be.herokuapp.com/api/v1/account';
 
 const requestBody = {
     userModel: {

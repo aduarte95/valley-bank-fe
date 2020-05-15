@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import { FormErrors } from '../FormErrors/FormErrors';
 
-const createFavorite = 'http://localhost:8080/api/v1/favorite';
+const createFavorite = 'https://valley-bank-be.herokuapp.com/api/v1/favorite';
 
 const requestBody = {
     userModel: {
@@ -46,7 +46,7 @@ function AddFavoriteForm({favorites}) {
 
     if(requestBody.accountModel.accountNumber !== '') {
     
-      verifyFieldsOnServer('http://localhost:8080/api/v1/account/get-account-by-number', {accountNumber: requestBody.accountModel.accountNumber})
+      verifyFieldsOnServer('https://valley-bank-be.herokuapp.com/api/v1/account/get-account-by-number', {accountNumber: requestBody.accountModel.accountNumber})
             .then(account => {
               
               validateField('accountNumber', account);
